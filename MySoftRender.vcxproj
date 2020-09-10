@@ -150,6 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="Rasterizer.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

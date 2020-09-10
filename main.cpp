@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "FrameBuffer.h"
+#include "Rasterizer.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -11,12 +11,12 @@ void processInput(GLFWwindow* window);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-FrameBuffer *Buffer = new FrameBuffer(SCR_WIDTH, SCR_HEIGHT);
+
+Rasterizer *r = new Rasterizer(SCR_WIDTH, SCR_HEIGHT);
 
 int main()
 {
     glfwInit();
-
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
@@ -41,15 +41,21 @@ int main()
         return -1;
     }
 
+    Vertex V1(glm::vec3(-0.5, -0.5, 0), glm::vec4(255, 0, 0, 0));
+    Vertex V2(glm::vec3(0.5, -0.5, 0), glm::vec4(0, 255, 0, 0));
+    Vertex V3(glm::vec3(0, 0.5, 0), glm::vec4(0, 0, 255, 0));
+    
+    Triangle MyFirstTriangle(V1, V2, V3);
+
 
     while (!glfwWindowShouldClose(window))
     {
 
         processInput(window);
-
         //glDrawPixels
-        Buffer->ClearBuffer(glm::vec4(234, 211, 100, 1.f));
-        glDrawPixels(SCR_WIDTH, SCR_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, Buffer->ColorData.data());
+        r->ClearBuffer(glm::vec4(0, 0, 0, 1.f));
+        r->DrawTriangle(MyFirstTriangle);
+        r->Show();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

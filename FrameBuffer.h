@@ -11,6 +11,7 @@ private:
 	//用于存储图像缓冲，色彩用4通道的rgba
 public:
 	std::vector<unsigned char> ColorData;
+	FrameBuffer(){}
 	FrameBuffer(const int &w, const int &h)
 		: Width(w), Height(h)
 	{
@@ -30,6 +31,28 @@ public:
 			p[i + 3] = color.a;
 		}
 	}
+
+	//void Setpoint(const int &x, const int &y, const glm::vec4 color)
+	//{
+	//	if (x < 0 || x >= Width || y < 0 || y >= Height)
+	//		return;
+	//	int i = y * Width + x;
+	//	ColorData[i * 4] = color.r;
+	//	ColorData[i * 4 + 1] = color.g;
+	//	ColorData[i * 4 + 2] = color.b;
+	//	ColorData[i * 4 + 3] = color.a;
+	//}
+	void Setpoint(const int& x, const int& y, const glm::vec4& color) {
+		if (x < 0 || x >= Width || y < 0 || y >= Height)
+			return;
+		int xy = (y * Width + x);
+		ColorData[xy * 4] = color.r;
+		ColorData[xy * 4 + 1] = color.g;
+		ColorData[xy * 4 + 2] = color.b;
+		ColorData[xy * 4 + 3] = color.a;
+	}
+
+
 };
 
 
