@@ -4,6 +4,7 @@
 #include "Triangle.h"
 #include "Shader.h"
 #include "FrameBuffer.h"
+#include "Math.h"
 
 class Rasterizer {
 private:
@@ -13,6 +14,12 @@ private:
 	Shader shader;
 	glm::mat4 ViewPortMatrix = glm::mat4(1.0f);
 public:
+	enum class DrawType
+	{
+		DrawTriangle,
+		DrawLine
+	};
+
 	Rasterizer(){}
 	Rasterizer(const int &w, const int &h)
 		:Width(w), Height(h)
@@ -50,7 +57,7 @@ public:
 		glDrawPixels(Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, Buf->ColorData.data());
 	}
 
-	void DrawTriangle(Triangle& triangle)
+	void DrawTriangle(Triangle& triangle, DrawType type)
 	{
 		Vertex v1 = triangle.v1;
 		Vertex v2 = triangle.v2;
@@ -64,16 +71,56 @@ public:
 		p2.windowp = ViewPortMatrix * p2.windowp;
 		p3.windowp = ViewPortMatrix * p3.windowp;
 
+		if (type == DrawType::DrawLine)
+		{
+			Drawline(p1, p2);
+			Drawline(p2, p3);
+			Drawline(p1, p3);
+		}
 		//std::cout << p1.windowp.x << ' ' << p1.windowp.y << ' ' << p1.windowp.z << std::endl;
 		//std::cout << p2.windowp.x << ' ' << p2.windowp.y << ' ' << p2.windowp.z << std::endl;
 		//std::cout << p3.windowp.x << ' ' << p3.windowp.y << ' ' << p3.windowp.z << std::endl;
-		//Drawline(p1, p2);
-		//Drawline(p2, p3);
-		//Drawline(p1, p3);
 
-		ScanLineTriangle(p1, p2, p3);
+
 	}
 
+	void ScanTriangle(VtoR v1, VtoR v2, VtoR v3)
+	{
+		//确保v1 v2 v3是y从大到小
+		if (v1.windowp.y < v2.windowp.y)
+			std::swap(v1, v2);
+		if(v2.windowp.y < v3.windowp.y)
+			std::swap(v2, v3);
+		if (v1.windowp.y < v3.windowp.y)
+			std::swap(v1, v3);
+		if (equal(v1.windowp.y, v2.windowp.y))
+			DownTriangle(v1, v2, v3);//这是一个底三角形
+		else if (equal(v2.windowp.y, v3.windowp.y))
+			UpTriangle(v1, v2, v3);
+		else
+		{
+			float Weight = (v1.windowp.y - v2.windowp.y)/(v1.windowp.y - v3.windowp.y);
+			VtoR tmpv = VtoR::Lerp(v1, v3, Weight);
+			UpTriangle(v1, v2, tmpv);
+			DownTriangle(v2, v3, tmpv);
+		}
+	}
+private:
+	void UpTriangle(VtoR v1, VtoR v2, VtoR v3)
+	{
+		float Starty = v1.windowp.y;
+		float Range = v1.windowp.y - v3.windowp.y;
+		for (int i = 0; i < Range; ++i)
+		{
+
+		}
+	}
+
+	void DownTriangle(VtoR v1, VtoR v2, VtoR v3)
+	{
+
+	}
+public:
 	void Drawline(VtoR begin, VtoR end)
 	{
 		float x0 = begin.windowp.x;

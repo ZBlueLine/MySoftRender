@@ -46,7 +46,7 @@ int main()
     Vertex V3(glm::vec3(0, 0.5, 0), glm::vec4(0, 0, 255, 0));
     
     Triangle MyFirstTriangle(V1, V2, V3);
-
+    r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
 
     while (!glfwWindowShouldClose(window))
     {
@@ -54,7 +54,7 @@ int main()
         processInput(window);
         //glDrawPixels
         r->ClearBuffer(glm::vec4(0, 0, 0, 1.f));
-        r->DrawTriangle(MyFirstTriangle);
+        r->DrawTriangle(MyFirstTriangle, Rasterizer::DrawType::DrawLine);
         r->Show();
         glfwSwapBuffers(window);
         glfwPollEvents();
