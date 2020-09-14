@@ -18,6 +18,7 @@ Camera* cam = new Camera();
 
 int main()
 {
+
     glm::vec3 Up(0, 1, 0);
     glm::vec3 Front(0, 0, 1);
     glm::vec3 UcF = cross(Up, Front);
@@ -65,7 +66,7 @@ int main()
         angle += 1.0f;
         //r->SetModelMatrix(glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0, 1.0, 0.0)));
         r->ClearBuffer(glm::vec4(0, 0, 0, 1.f));
-        r->DrawMesh(Cube, Rasterizer::DrawType::DrawTriangle);
+        r->DrawMesh(Cube, Rasterizer::DrawType::DrawLine);
         //r->DrawTriangle(MyFirstTriangle, Rasterizer::DrawType::DrawTriangle);
         r->Show();
         glfwSwapBuffers(window);

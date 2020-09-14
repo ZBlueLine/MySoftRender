@@ -15,6 +15,92 @@ private:
 	Shader *shader;
 	glm::mat4 ViewPortMatrix = glm::mat4(1.0f);
 public:
+	std::vector<glm::vec3> ViewPortPoint
+	{ 
+		//右上左上左下右下四个点
+		//逆时针方向，用于判断内外
+		glm::vec3(1.f, 1.f, 1.f),
+		glm::vec3(-1.f, 1.f, 1.f),
+		glm::vec3(-1.f, -1.f, 1.f), 
+		glm::vec3(1.f, -1.f, 1.f) 
+	};
+
+	bool InsideLine(const glm::vec3& p1, const glm::vec3 &p2, const glm::vec4 &Point)
+	{
+		glm::vec3 point = glm::vec3(Point.x, Point.y, Point.z);
+		//从p1到p2的向量
+		glm::vec3 line1 = p2 - p1;
+		glm::vec3 line2 = point - p1;
+
+		return glm::normalize(cross(line1, line2)).z > 0;
+	}
+
+	bool Allinside(const std::vector<VtoR> &points)
+	{
+		for (const VtoR &c:points)
+		{
+			for (int j = 0; j < 4; ++j)
+			{
+				if (!InsideLine(ViewPortPoint[j], ViewPortPoint[(j + 1)%4], c.windowp))
+					return false;
+			}
+		}
+		return true;
+	}
+
+	VtoR Intersect(const glm::vec3& lp1, const glm::vec3& lp2, const VtoR& p1, const VtoR& p2)
+	{
+		float Weight = 0.f;
+		if (lp1.y == lp2.y)
+			Weight = fabs(p1.windowp.y - lp1.y) / fabs(p1.windowp.y - p2.windowp.y);
+		else
+			Weight = fabs(p1.windowp.x - lp1.x) / fabs(p1.windowp.x - p2.windowp.x);
+		return VtoR::Lerp(p1, p2, Weight);
+	}
+
+	std::vector<VtoR> ViewClip(const VtoR& v1, const VtoR& v2, const VtoR& v3)
+	{
+		std::vector<VtoR> output{ v1, v2, v3};
+		if (Allinside(output))
+			return output;
+		VtoR tem = v3;
+		VtoR tem2 = v3;
+		tem.windowp.x = -2;
+		tem.windowp.y = -2;
+		tem.windowp.z = 0;
+		tem2.windowp.x = -2;
+		tem2.windowp.y = -2;
+		tem2.windowp.z = 0;
+
+		//for (int e = 0; e < 4; ++e)
+		//{
+		//	Intersect(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], tem, tem2)
+		//}
+		//system("pause");
+
+		for (int e = 0; e < 4; ++e)
+		{
+			std::vector<VtoR> input(output);
+			output.clear();
+			int Sizeofi = input.size();
+			for (int i = 0; i < Sizeofi; ++i)
+			{
+				VtoR current = input[i];
+				VtoR prev = input[(i + Sizeofi - 1) % Sizeofi];
+				if (InsideLine(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], current.windowp))
+				{
+
+					if (!InsideLine(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], prev.windowp))
+						output.push_back(Intersect(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], current, prev));
+					output.push_back(current);
+				}
+				else if (InsideLine(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], prev.windowp))
+					output.push_back(Intersect(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], current, prev));
+			}
+		}
+		return output;
+	}
+
 	enum class DrawType
 	{
 		DrawTriangle,
@@ -108,21 +194,30 @@ public:
 		PerspectiveDivision(p1);
 		PerspectiveDivision(p2);
 		PerspectiveDivision(p3);
-		if (!BackFaceculling(p1, p2, p3))
-			return;
-		p1.windowp = ViewPortMatrix * p1.windowp;
-		p2.windowp = ViewPortMatrix * p2.windowp;
-		p3.windowp = ViewPortMatrix * p3.windowp;
 
-		if (type == DrawType::DrawLine)
+		std::vector<VtoR> Npoints =  ViewClip(p1, p2, p3);
+		int Trianglenum = Npoints.size() - 3 + 1;
+		for (int i = 0; i < Trianglenum; ++i)
 		{
-			Drawline(p1, p2);
-			Drawline(p2, p3);
-			Drawline(p1, p3);
-		}
-		else 
-		{
-			ScanTriangle(p1, p2, p3);
+			p1 = Npoints[0];
+			p2 = Npoints[i + 1];
+			p3 = Npoints[i + 2];
+			if (!BackFaceculling(p1, p2, p3))
+				continue;
+			p1.windowp = ViewPortMatrix * p1.windowp;
+			p2.windowp = ViewPortMatrix * p2.windowp;
+			p3.windowp = ViewPortMatrix * p3.windowp;
+
+			if (type == DrawType::DrawLine)
+			{
+				Drawline(p1, p2);
+				Drawline(p2, p3);
+				Drawline(p1, p3);
+			}
+			else
+			{
+				ScanTriangle(p1, p2, p3);
+			}
 		}
 	}
 

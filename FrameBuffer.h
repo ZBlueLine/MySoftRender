@@ -12,8 +12,7 @@ private:
 public:
 	std::vector<unsigned char> ColorData;
 	std::vector<float> DepthData;
-	FrameBuffer() = default;
-	FrameBuffer(const int &w, const int &h)
+	FrameBuffer(const int &w = 800, const int &h = 600)
 		: Width(w), Height(h)
 	{
 		ColorData.resize(Width * Height * 4);
@@ -36,16 +35,6 @@ public:
 		
 	}
 
-	//void Setpoint(const int &x, const int &y, const glm::vec4 color)
-	//{
-	//	if (x < 0 || x >= Width || y < 0 || y >= Height)
-	//		return;
-	//	int i = y * Width + x;
-	//	ColorData[i * 4] = color.r;
-	//	ColorData[i * 4 + 1] = color.g;
-	//	ColorData[i * 4 + 2] = color.b;
-	//	ColorData[i * 4 + 3] = color.a;
-	//}
 	float GetDepth(const int& x, const int& y)
 	{
 		if (y<0 || y>=Height || x<0 || x>=Width)
