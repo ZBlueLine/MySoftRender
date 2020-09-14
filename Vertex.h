@@ -12,16 +12,16 @@ public:
 	glm::vec4 normal;
 
 	Vertex() = default;
-	Vertex(const glm::vec4 &p, 
-		const glm::vec4 &c = glm::vec4(0, 0, 0, 0), 
-		const glm::vec2 &t = glm::vec2(0, 0),
-		const glm::vec4 &n = glm::vec4(0, 0, 0, 0))
+	Vertex(const glm::vec4 &p,
+		const glm::vec4& c = glm::vec4(0, 0, 0, 0),
+		const glm::vec4& n = glm::vec4(0, 0, 0, 0),
+		const glm::vec2& t = glm::vec2(0, 0))
 		:position(p), color(c), texcoord(t), normal(n)
 	{}
 	Vertex(const glm::vec3& p,
 		const glm::vec4& c = glm::vec4(0, 0, 0, 0),
-		const glm::vec2& t = glm::vec2(0, 0),
-		const glm::vec4& n = glm::vec4(0, 0, 0, 0))
+		const glm::vec4& n = glm::vec4(0, 0, 0, 0),
+		const glm::vec2& t = glm::vec2(0, 0))
 		:position(p, 1.0f), color(c), texcoord(t), normal(n)
 	{}
 
@@ -35,6 +35,7 @@ public:
 	glm::vec4 color;
 	glm::vec2 texcoord;
 	glm::vec4 normal;
+	float Z;
 	VtoR() = default;
 	static VtoR Lerp(const VtoR& v1, const VtoR& v2, const float& weigh)
 	{
@@ -44,6 +45,8 @@ public:
 		resualt.color = lerp(v1.color, v2.color, weigh);
 		resualt.texcoord = lerp(v1.texcoord, v2.texcoord, weigh);
 		resualt.normal = lerp(v1.normal, v2.normal, weigh);
+		resualt.Z = lerp(v1.Z, v2.Z, weigh);
+
 		return resualt;
 	}
 };

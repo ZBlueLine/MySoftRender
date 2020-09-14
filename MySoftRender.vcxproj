@@ -149,11 +149,14 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
