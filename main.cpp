@@ -57,7 +57,7 @@ int main()
 
     r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)SCR_WIDTH / SCR_HEIGHT, 0.3, 100.f));
     r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
-    r->LoadTexture("Texture/mob.jpg");
+    r->LoadTexture("Texture/container.jpg");
     float angle = 0;
     while (!glfwWindowShouldClose(window))
     {
@@ -66,7 +66,7 @@ int main()
         angle += 1.0f;
         //r->SetModelMatrix(glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0, 1.0, 0.0)));
         r->ClearBuffer(glm::vec4(0, 0, 0, 1.f));
-        r->DrawMesh(Cube, Rasterizer::DrawType::DrawLine);
+        r->DrawMesh(Cube, Rasterizer::DrawType::DrawTriangle);
         //r->DrawTriangle(MyFirstTriangle, Rasterizer::DrawType::DrawTriangle);
         r->Show();
         glfwSwapBuffers(window);

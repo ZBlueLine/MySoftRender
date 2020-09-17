@@ -48,6 +48,10 @@ public:
 		resualt.windowp = ViewMatrix * resualt.worldp;
 		resualt.windowp = PerspectiveMatrix * resualt.windowp;
 
+		resualt.texcoord = v.texcoord;
+		resualt.color = v.color;
+		resualt.normal = v.normal;
+
 		return resualt;
 	}
 

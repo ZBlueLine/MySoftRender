@@ -1,6 +1,8 @@
 #pragma once
 #ifndef __VERTEX__
 #define __VERTEX__
+
+#include <iostream>
 #include "global.h"
 #include "Math.h"
 
@@ -37,6 +39,9 @@ public:
 	glm::vec4 normal;
 	float Z;
 	VtoR() = default;
+
+	friend std::ostream& operator<< (std::ostream &os, const VtoR& v);
+
 	static VtoR Lerp(const VtoR& v1, const VtoR& v2, const float& weigh)
 	{
 		VtoR resualt;
@@ -50,6 +55,13 @@ public:
 		return resualt;
 	}
 };
+
+std::ostream& operator<<(std::ostream &os, const VtoR& v)
+{
+	os << "Windowp";
+	os << v.windowp.x << ' ' << v.windowp.y << ' ' << v.windowp.z << std::endl;
+	return os;
+}
 
 #endif // !__VERTEX__
 
