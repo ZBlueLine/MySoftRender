@@ -72,12 +72,6 @@ public:
 		tem2.windowp.y = -2;
 		tem2.windowp.z = 0;
 
-		//for (int e = 0; e < 4; ++e)
-		//{
-		//	Intersect(ViewPortPoint[e], ViewPortPoint[(e + 1) % 4], tem, tem2)
-		//}
-		//system("pause");
-
 		for (int e = 0; e < 4; ++e)
 		{
 			std::vector<VtoR> input(output);
@@ -155,10 +149,19 @@ public:
 
 	void PerspectiveDivision(VtoR &p)
 	{
+		//对于一个在摄像机之后的物体，w会是一个负值，这就导致上下左右的颠倒
+		//而且目前没有做齐次坐标剔除，在背后的东西也会被画出来，因为画一个物体只取决于深度测试
+		//位于背后的物体深度是很浅的，就直接通过xy画了
+		p.Z = 1 / p.windowp.w;
 		p.windowp /= p.windowp.w;
 		p.windowp.w = 1.0f;
 
 		p.windowp.z = (p.windowp.z + 1.0) * 0.5f;
+
+		p.worldp *= p.Z;
+		p.color = p.color * p.Z;
+		p.texcoord = p.texcoord * p.Z;
+		p.normal = p.normal * p.Z;
 	}
 
 	bool BackFaceculling(const VtoR& p1, const VtoR& p2, const VtoR& p3)
@@ -190,10 +193,12 @@ public:
 		VtoR p1 = shader->VertexShader(v1);
 		VtoR p2 = shader->VertexShader(v2);
 		VtoR p3 = shader->VertexShader(v3);
-
 		PerspectiveDivision(p1);
 		PerspectiveDivision(p2);
 		PerspectiveDivision(p3);
+
+		if (!BackFaceculling(p1, p2, p3))
+			return;
 
 		std::vector<VtoR> Npoints =  ViewClip(p1, p2, p3);
 		int Trianglenum = Npoints.size() - 3 + 1;
@@ -202,12 +207,13 @@ public:
 			p1 = Npoints[0];
 			p2 = Npoints[i + 1];
 			p3 = Npoints[i + 2];
-			if (!BackFaceculling(p1, p2, p3))
-				continue;
+
+
 			p1.windowp = ViewPortMatrix * p1.windowp;
 			p2.windowp = ViewPortMatrix * p2.windowp;
 			p3.windowp = ViewPortMatrix * p3.windowp;
 
+			
 			if (type == DrawType::DrawLine)
 			{
 				Drawline(p1, p2);
@@ -304,7 +310,6 @@ private:
 			if (New.windowp.z < Buf->GetDepth(New.windowp.x, New.windowp.y))
 			{
 				Buf->WriteDepth(New.windowp.x, New.windowp.y, New.windowp.z);
-				/*std::cout << shader.FragmentShader(New).x << ' ' << shader.FragmentShader(New).y << ' ' << shader.FragmentShader(New).z << std::endl;*/
 				Buf->Setpoint(New.windowp.x, New.windowp.y, shader->FragmentShader(New));
 			}
 		}

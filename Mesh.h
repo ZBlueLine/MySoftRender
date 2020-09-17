@@ -51,18 +51,18 @@ public:
 			glm::vec3(ox - radius, oy + radius, oz + radius),
 			glm::vec3(ox - radius, oy - radius, oz + radius),
 			glm::vec4(1, 0, 0, 0)));
-		//前面
-		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz + radius),
-			glm::vec3(ox - radius, oy - radius, oz + radius),
-			glm::vec3(ox + radius, oy + radius, oz + radius),
-			glm::vec3(ox + radius, oy - radius, oz + radius),
-			glm::vec4(0, 0, -1, 0)));
 		//后面
 		AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz - radius),
 			glm::vec3(ox + radius, oy - radius, oz - radius),
 			glm::vec3(ox - radius, oy + radius, oz - radius),
 			glm::vec3(ox - radius, oy - radius, oz - radius),
 			glm::vec4(0, 0, 1, 0)));
+		//前面
+		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz + radius),
+			glm::vec3(ox - radius, oy - radius, oz + radius),
+			glm::vec3(ox + radius, oy + radius, oz + radius),
+			glm::vec3(ox + radius, oy - radius, oz + radius),
+			glm::vec4(0, 0, -1, 0)));
 	}
 
 	void AddMesh(Mesh Plane)

@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include "Math.h"
 
-
 class Camera {
 private:
 	float fov;
@@ -40,22 +39,7 @@ public:
 
 
 	//使用旋转矩阵，都是逆时针旋转
-	void pitch(const float& angle)
-	{
-		float radian = glm::radians(angle);
-		glm::mat4 Rx = RodriguesRotationFormula(Position, RightV, angle);
-		FrontV = Rx * FrontV;
-		UpV = Rx * UpV;
-	}
 
-	void yaw(const float& angle)
-	{
-		float radian = glm::radians(angle);
-		glm::mat4 Ry = RodriguesRotationFormula(Position, glm::vec3(0, 1, 0), angle);
-		UpV = Ry * UpV;
-		FrontV = Ry * FrontV;
-		RightV = Ry * RightV;
-	}
 
 	float GetFov() const
 	{
@@ -81,7 +65,30 @@ public:
 	{
 		return FrontV;
 	}
+
+	void yaw(const float&);
+
+	void pitch(const float&);
 };
+
+inline
+void Camera::yaw(const float& angle)
+{
+	float radian = glm::radians(angle);
+	glm::mat4 Ry = RodriguesRotationFormula(Position, glm::vec3(0, 1, 0), angle);
+	UpV = Ry * UpV;
+	FrontV = Ry * FrontV;
+	RightV = Ry * RightV;
+}
+
+inline
+void Camera::pitch(const float& angle)
+{
+	float radian = glm::radians(angle);
+	glm::mat4 Rx = RodriguesRotationFormula(Position, RightV, angle);
+	FrontV = Rx * FrontV;
+	UpV = Rx * UpV;
+}
 
 #endif // !__CAMERA__
 
