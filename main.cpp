@@ -57,7 +57,7 @@ int main()
 
     r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)SCR_WIDTH / SCR_HEIGHT, 0.3, 100.f));
     r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
-    r->LoadTexture("Texture/container.jpg");
+    r->LoadTexture("Texture/mob.jpg");
     float angle = 0;
     while (!glfwWindowShouldClose(window))
     {

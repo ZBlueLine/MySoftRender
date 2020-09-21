@@ -54,10 +54,10 @@ public:
 		if (x < 0 || x >= Width || y < 0 || y >= Height)
 			return;
 		int xy = (y * Width + x);
-		ColorData[xy * 4] = color.r;
-		ColorData[xy * 4 + 1] = color.g;
-		ColorData[xy * 4 + 2] = color.b;
-		ColorData[xy * 4 + 3] = color.a;
+		ColorData[xy * 4] = color.r * 255;
+		ColorData[xy * 4 + 1] = color.g * 255;
+		ColorData[xy * 4 + 2] = color.b * 255;
+		ColorData[xy * 4 + 3] = color.a * 255;
 	}
 
 
