@@ -58,8 +58,11 @@ public:
 
 std::ostream& operator<<(std::ostream &os, const VtoR& v)
 {
-	os << "Windowp";
-	os << v.windowp.x << ' ' << v.windowp.y << ' ' << v.windowp.z << std::endl;
+	os << "Windowp" << std::endl;
+	os << v.windowp.x << ' ' << v.windowp.y << ' ' << v.windowp.z <<' '<<v.windowp.w<< std::endl;
+	os << "color" << std::endl;;
+	os << v.color.r << ' ' << v.color.g << ' ' << v.color.b << std::endl;;
+
 	return os;
 }
 

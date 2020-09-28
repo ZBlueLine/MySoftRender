@@ -193,9 +193,9 @@ public:
 
 		p.windowp.z = (p.windowp.z + 1.0) * 0.5f;
 		p.worldp *= p.Z;
-		p.color = p.color * p.Z;
-		p.texcoord = p.texcoord * p.Z;
-		p.normal = p.normal * p.Z;
+		p.color *= p.Z;
+		p.texcoord *= p.Z;
+		p.normal *= p.Z;
 	}
 
 	bool Homogeneousculling(const VtoR& p1, const VtoR& p2, const VtoR& p3)
@@ -245,7 +245,6 @@ public:
 		VtoR p2 = shader->VertexShader(v2);
 		VtoR p3 = shader->VertexShader(v3);
 
-
 		std::vector<VtoR> Npoints = ViewClip(p1, p2, p3);
 		int Trianglenum = Npoints.size() - 3 + 1;
 		for (int i = 0; i < Trianglenum; ++i)
@@ -262,8 +261,6 @@ public:
 			p1.windowp = ViewPortMatrix * p1.windowp;
 			p2.windowp = ViewPortMatrix * p2.windowp;
 			p3.windowp = ViewPortMatrix * p3.windowp;
-
-			
 			if (type == DrawType::DrawLine)
 			{
 				Drawline(p1, p2);
@@ -352,7 +349,6 @@ private:
 			VtoR New = VtoR::Lerp(left, right, Weight);
 			New.windowp.y = left.windowp.y;
 			New.windowp.x = left.windowp.x + i;
-
 			New.worldp /= New.Z;
 			New.color /= New.Z;
 			New.normal /= New.Z;
@@ -372,7 +368,7 @@ public:
 		float y0 = begin.windowp.y;
 		float x1 = end.windowp.x;
 		float y1 = end.windowp.y;
-		glm::vec4 line_color = { 255, 255, 255, 255 };
+		glm::vec4 line_color = { 1, 1, 1, 1 };
 		//处理斜率大于1的情况
 		bool steep = abs(y1 - y0) > abs(x1 - x0);
 		if (steep)

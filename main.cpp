@@ -22,7 +22,6 @@ int main()
     glm::vec3 Up(0, 1, 0);
     glm::vec3 Front(0, 0, 1);
     glm::vec3 UcF = cross(Up, Front);
-    std::cout << UcF.x << ' '<<UcF.y<<' '<<UcF.z << std::endl;
     glfwInit();
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -30,7 +29,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "MySoftRender", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -48,17 +47,33 @@ int main()
         return -1;
     }
 
-    Vertex V1(glm::vec3(-0.5, 0.5, 0), glm::vec4(255, 0, 0, 1));
-    Vertex V2(glm::vec3(0.5, 0.1, 0), glm::vec4(0, 255, 0, 1));
-    Vertex V3(glm::vec3(0, -0.2, 0), glm::vec4(0, 0, 255, 1));
+    Vertex V1(glm::vec3(-0.5, 0.5, 0), glm::vec4(1, 0, 0, 1));
+    Vertex V2(glm::vec3(0.5, 0.1, 0), glm::vec4(0, 1, 0, 1));
+    Vertex V3(glm::vec3(0, -0.2, 0), glm::vec4(0, 0, 1, 1));
     Mesh Cube;
     Cube.CreatCube(0, 0.5, 0, 1);
     Triangle MyFirstTriangle(V1, V2, V3);
 
     r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)SCR_WIDTH / SCR_HEIGHT, 0.3, 100.f));
     r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
+    float angle = 0; 
+    auto  Type = Rasterizer::DrawType::DrawTriangle;
     r->LoadTexture("Texture/mob.jpg");
-    float angle = 0;
+    std::cout << "是否显示模型线框？Y/N" << std::endl;
+    while (1)
+    {
+        std::string Judge;
+        std::cin >> Judge;
+        if (Judge[0] == 'Y')
+        {
+            Type = Rasterizer::DrawType::DrawLine;
+            break;
+        }
+        else if (Judge[0] == 'N')
+            break;
+        else 
+            std::cout << "输入Y或者N"<<std::endl;
+    }
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -66,7 +81,7 @@ int main()
         angle += 1.0f;
         //r->SetModelMatrix(glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0, 1.0, 0.0)));
         r->ClearBuffer(glm::vec4(0, 0, 0, 1.f));
-        r->DrawMesh(Cube, Rasterizer::DrawType::DrawTriangle);
+        r->DrawMesh(Cube, Type);
         //r->DrawTriangle(MyFirstTriangle, Rasterizer::DrawType::DrawTriangle);
         r->Show();
         glfwSwapBuffers(window);
@@ -91,13 +106,13 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         cam->yaw(-2.5f);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cam->MoveZ(0.2f);
+        cam->MoveZ(0.08f);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cam->MoveZ(-0.2f);
+        cam->MoveZ(-0.08f);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cam->MoveX(-0.2f);
+        cam->MoveX(-0.08f);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cam->MoveX(0.2f);
+        cam->MoveX(0.08f);
 }
 
 

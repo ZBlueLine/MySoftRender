@@ -11,10 +11,10 @@ public:
 	Mesh CreatePlan(glm::vec3 LT, glm::vec3 LB, glm::vec3 RT, glm::vec3 RB, glm::vec4 normal)
 	{
 		Mesh result;
-		result.VBO.push_back(Vertex(LT, glm::vec4(255, 255, 0, 255), normal, glm::vec2(0.f, 0.f)));
-		result.VBO.push_back(Vertex(LB, glm::vec4(0, 255, 0, 255), normal, glm::vec2(0.f, 1.f)));
-		result.VBO.push_back(Vertex(RT, glm::vec4(255, 0, 255, 255), normal, glm::vec2(1., 0.f)));
-		result.VBO.push_back(Vertex(RB, glm::vec4(0, 255, 255, 255), normal, glm::vec2(1.f, 1.f)));
+		result.VBO.push_back(Vertex(LT, glm::vec4(1, 1, 0, 1), normal, glm::vec2(0.f, 0.f)));
+		result.VBO.push_back(Vertex(LB, glm::vec4(0, 1, 0, 1), normal, glm::vec2(0.f, 1.f)));
+		result.VBO.push_back(Vertex(RT, glm::vec4(1, 0, 1, 1), normal, glm::vec2(1., 0.f)));
+		result.VBO.push_back(Vertex(RB, glm::vec4(0, 1, 1, 1), normal, glm::vec2(1.f, 1.f)));
 		//逆时针画三角形 便于之后面剔除
 		result.EBO.push_back(0);
 		result.EBO.push_back(1);
