@@ -59,14 +59,6 @@ glm::mat4 GetPerspectiveMatrix(const float& fov, const float& AspectRatio, const
 		0, n / t, 0, 0,
 		0, 0, -(f + n) / (f - n), -1,
 		0, 0, -2 * f * n / (f - n), 0);
-	//for (int i = 0; i < 4; ++i)
-	//{
-	//	for (int j = 0; j < 4; ++j)
-	//	{
-	//		std::cout << result[i][j] << ' ';
-	//	}
-	//	std::cout << std::endl;
-	//}
 	return result;
 }
 

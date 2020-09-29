@@ -1,8 +1,4 @@
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include "global.h"
 #include "Rasterizer.h"
 #include "Mesh.h"
 #include "Camera.h"
@@ -27,8 +23,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    // glfw window creation
-    // --------------------
+
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "MySoftRender", NULL, NULL);
     if (window == NULL)
     {
@@ -39,8 +34,7 @@ int main()
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
+
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -64,12 +58,12 @@ int main()
     {
         std::string Judge;
         std::cin >> Judge;
-        if (Judge[0] == 'Y')
+        if (Judge[0] == 'Y' || Judge[0] == 'y')
         {
             Type = Rasterizer::DrawType::DrawLine;
             break;
         }
-        else if (Judge[0] == 'N')
+        else if (Judge[0] == 'N'|| Judge[0] == 'n')
             break;
         else 
             std::cout << "ÊäÈëY»òÕßN"<<std::endl;
@@ -78,11 +72,8 @@ int main()
     {
         processInput(window);
         r->SetViewMatrix(GetViewMatrix(cam->GetPosition(), cam->GetFront(), cam->GetUp()));
-        angle += 1.0f;
-        //r->SetModelMatrix(glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0, 1.0, 0.0)));
-        r->ClearBuffer(glm::vec4(0, 0, 0, 1.f));
+        r->ClearBuffer(glm::vec4(0.1, 0.35, 0.5, 1.0));
         r->DrawMesh(Cube, Type);
-        //r->DrawTriangle(MyFirstTriangle, Rasterizer::DrawType::DrawTriangle);
         r->Show();
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -91,8 +82,7 @@ int main()
     return 0;
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
+
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -116,11 +106,10 @@ void processInput(GLFWwindow* window)
 }
 
 
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+    r->Setsize(width, height);
+    r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)width / height, 0.3, 100.f));
 }

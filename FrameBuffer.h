@@ -18,8 +18,15 @@ public:
 		ColorData.resize(Width * Height * 4);
 		DepthData = std::vector<float>(Width * Height, 2.0f);
 	}
-	~FrameBuffer() = default;
 	
+	void Setsize(const int& w, const int& h)
+	{
+		Width = w;
+		Height = h;
+		ColorData.resize(Width * Height * 4);
+		DepthData = std::vector<float>(Width * Height, 2.0f);
+	}
+
 	//用于清空画布
 	void ClearBuffer(glm::vec4 color)
 	{
@@ -27,10 +34,10 @@ public:
 		unsigned char *p = ColorData.data();
 		for (int i = 0; i < Height * Width * 4; i += 4)
 		{
-			p[i] = color.r;
-			p[i + 1] = color.g;
-			p[i + 2] = color.b;
-			p[i + 3] = color.a;
+			p[i] = color.r * 255;
+			p[i + 1] = color.g * 255;
+			p[i + 2] = color.b * 255;
+			p[i + 3] = color.a * 255;
 		}
 		
 	}

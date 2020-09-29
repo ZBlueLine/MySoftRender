@@ -16,48 +16,13 @@ private:
 	glm::mat4 ViewPortMatrix = glm::mat4(1.0f);
 public:
 
-	//std::vector<glm::vec3> ViewPortPoint
-	//{ 
-	//	//右上左上左下右下四个点
-	//	//逆时针方向，用于判断内外
-	//	glm::vec3(1.f, 1.f, 1.f),
-	//	glm::vec3(-1.f, 1.f, 1.f),
-	//	glm::vec3(-1.f, -1.f, 1.f), 
-	//	glm::vec3(1.f, -1.f, 1.f) 
-	//};
-
-	//bool InsideLine(const glm::vec3& p1, const glm::vec3 &p2, const glm::vec4 &Point)
-	//{
-	//	glm::vec3 point = glm::vec3(Point.x, Point.y, Point.z);
-	//	//从p1到p2的向量
-	//	glm::vec3 line1 = p2 - p1;
-	//	glm::vec3 line2 = point - p1;
-
-	//	return glm::normalize(cross(line1, line2)).z > 0;
-	//}
-
-	//bool Allinside(const std::vector<VtoR> &points)
-	//{
-	//	for (const VtoR &c:points)
-	//	{
-	//		for (int j = 0; j < 4; ++j)
-	//		{
-	//			if (!InsideLine(ViewPortPoint[j], ViewPortPoint[(j + 1)%4], c.windowp))
-	//				return false;
-	//		}
-	//	}
-	//	return true;
-	//}
-
-	//VtoR Intersect(const glm::vec3& lp1, const glm::vec3& lp2, const VtoR& p1, const VtoR& p2)
-	//{
-	//	float Weight = 0.f;
-	//	if (lp1.y == lp2.y)
-	//		Weight = fabs(p1.windowp.y - lp1.y) / fabs(p1.windowp.y - p2.windowp.y);
-	//	else
-	//		Weight = fabs(p1.windowp.x - lp1.x) / fabs(p1.windowp.x - p2.windowp.x);
-	//	return VtoR::Lerp(p1, p2, Weight);
-	//}
+	void Setsize(const int& w, const int& h)
+	{
+		Width = w;
+		Height = h;
+		Buf->Setsize(w, h);
+		ViewPortMatrix = GetViewPortMatrix(w, h);
+	}
 
 	std::vector<glm::vec4> ViewPortPlane
 	{
