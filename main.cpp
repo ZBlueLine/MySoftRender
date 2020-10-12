@@ -2,6 +2,9 @@
 #include "Rasterizer.h"
 #include "Mesh.h"
 #include "Camera.h"
+#include "Shader.h"
+#include "Material.h"
+#include "Model.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -14,6 +17,43 @@ Camera* cam = new Camera();
 
 int main()
 {
+
+
+    Material bodyMat;
+    Texture bodyTexture;
+    bodyTexture.LoadTexture("neptune\\Texf_body02.jpg");
+    bodyMat.SetTexture(bodyTexture);
+
+    Material faceMat;
+    Texture faceTexture;
+    faceTexture.LoadTexture("neptune\\Tex002f_body01.jpg");
+    faceMat.SetTexture(faceTexture);
+
+    Material mouseMat;
+    Texture mouseTexture;
+    mouseTexture.LoadTexture("neptune\\Texf_mouse.jpg");
+    mouseMat.SetTexture(mouseTexture);
+
+    Material eyeMat;
+    Texture eyeTexture;
+    eyeTexture.LoadTexture("neptune\\Tex001f_eye.jpg");
+    eyeMat.SetTexture(eyeTexture);
+
+    Model model("neptune\\neptune.obj");
+    model.SetMaterial(0, mouseMat);
+    model.SetMaterial(1, faceMat);
+    model.SetMaterial(2, bodyMat);
+    model.SetMaterial(3, eyeMat);
+
+    Mesh box;
+    box.CreatCube(0.0, 0.0, 0.0, 0.5);
+    Material mat;
+    Texture boxt;
+    boxt.LoadTexture("Texture/mob.jpg");
+    mat.SetTexture(boxt);
+    Object Cube(box, mat);
+
+    //加载模型
 
     glm::vec3 Up(0, 1, 0);
     glm::vec3 Front(0, 0, 1);
@@ -44,15 +84,15 @@ int main()
     Vertex V1(glm::vec3(-0.5, 0.5, 0), glm::vec4(1, 0, 0, 1));
     Vertex V2(glm::vec3(0.5, 0.1, 0), glm::vec4(0, 1, 0, 1));
     Vertex V3(glm::vec3(0, -0.2, 0), glm::vec4(0, 0, 1, 1));
-    Mesh Cube;
-    Cube.CreatCube(0, 0.5, 0, 1);
-    Triangle MyFirstTriangle(V1, V2, V3);
+    //Mesh Cube;
+    //Cube.CreatCube(0, 0.5, 0, 1);
+    //Triangle MyFirstTriangle(V1, V2, V3);
 
     r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)SCR_WIDTH / SCR_HEIGHT, 0.3, 100.f));
     r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
     float angle = 0; 
     auto  Type = Rasterizer::DrawType::DrawTriangle;
-    r->LoadTexture("Texture/mob.jpg");
+    //r->LoadTexture("Texture/mob.jpg");
     std::cout << "是否显示模型线框？Y/N" << std::endl;
     while (1)
     {
@@ -71,9 +111,13 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
+        r->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01)));
         r->SetViewMatrix(GetViewMatrix(cam->GetPosition(), cam->GetFront(), cam->GetUp()));
         r->ClearBuffer(glm::vec4(0.1, 0.35, 0.5, 1.0));
-        r->DrawMesh(Cube, Type);
+        r->DrawModel(model, Type);
+
+        r->SetModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, -2, 0)));
+        r->DrawObject(Cube, Type);
         r->Show();
         glfwSwapBuffers(window);
         glfwPollEvents();

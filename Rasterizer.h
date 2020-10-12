@@ -6,6 +6,8 @@
 #include "FrameBuffer.h"
 #include "Math.h"
 #include "Mesh.h"
+#include "Model.h"
+#include "Object.h"
 
 class Rasterizer {
 private:
@@ -103,7 +105,7 @@ public:
 	Rasterizer(const int &w, const int &h)
 		:Width(w), Height(h)
 	{
-		shader = new Shader(w, h);
+		shader = new Shader;
 		Buf = new FrameBuffer(w, h);
 	}
 	~Rasterizer()
@@ -190,7 +192,21 @@ public:
 		return glm::dot(eyev, v2) < 0;
 	}
 
-	void DrawMesh(const Mesh& mesh, const DrawType type)
+	void DrawModel(Model& model, const DrawType& type) {
+		for (int i = 0; i < model.objects.size(); i++) {
+			DrawObject(model.objects[i], type);
+		}
+	}
+
+	void DrawObject(Object& obj, const DrawType& type) {
+		if (obj.mesh.EBO.empty()) {
+			return;
+		}
+		shader->SetTexture(*obj.material.MainTex);
+		DrawMesh(obj.mesh, type);
+	}
+
+	void DrawMesh(const Mesh& mesh, const DrawType& type)
 	{
 		int Size = mesh.EBO.size();
 		for (int i = 0; i < Size; i += 3)

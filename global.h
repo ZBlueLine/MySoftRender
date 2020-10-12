@@ -9,7 +9,8 @@
 #include <iostream>
 #include <vector>
 
-
+class Camera;
+class Rasterizer;
 
 
 #endif // !__GLOBAL__

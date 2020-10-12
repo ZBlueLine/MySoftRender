@@ -6,25 +6,29 @@
 
 class Shader {
 private:
-	int Height;
-	int Width;
 	Texture* Tex;
 	glm::mat4 ModelMatrix = glm::mat4(1.0f);
 	glm::mat4 ViewMatrix = glm::mat4(1.0f);
 	glm::mat4 PerspectiveMatrix = glm::mat4(1.0f);
 public:
-	Shader(int w, int h)
-		:Width(w), Height(h)
+	Shader()
 	{
-		Tex = new Texture(w, h);
+		Tex = new Texture;
 	}
 	~Shader()
 	{
-		delete Tex;
+		if(Tex)
+			delete Tex;
 	}
 	void LoadTexture(const std::string& Path)
 	{
 		Tex->LoadTexture(Path);
+	}
+	void SetTexture(const Texture& ctex)
+	{
+		if (!Tex)
+			Tex = new Texture;
+		*Tex = ctex;
 	}
 	void SetModelMatrix(const glm::mat4& Mat)
 	{
