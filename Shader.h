@@ -9,12 +9,11 @@ class Shader {
 private:
 	Texture* Tex;
 	glm::vec3 Eyepoint;
-public:
-
 	glm::mat4 ModelMatrix = glm::mat4(1.0f);
 	glm::mat4 ViewMatrix = glm::mat4(1.0f);
 	glm::mat4 PerspectiveMatrix = glm::mat4(1.0f);
 	glm::mat3 NormalMatrix = glm::mat3(1.0f);
+public:
 	Shader()
 	{
 		Tex = new Texture;
@@ -75,11 +74,7 @@ public:
 	glm::vec4 FragmentShadertt(const VtoR& v)
 	{
 		if (Tex->data)
-		{
 			glm::vec4 ReturnColor = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
-			//return Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
-
-		}
 		return v.color;
 	}
 
@@ -94,7 +89,6 @@ public:
 		glm::vec4 return_color = { 0, 0, 0, 0 };
 		if (Tex->data)
 		{
-			// TODO: Get the texture value at the texture coordinates of the current fragment
 			return_color = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
 		}
 		glm::vec4 texture_color(return_color.x, return_color.y, return_color.z, return_color.w);
@@ -126,9 +120,6 @@ public:
 			float nl = glm::dot(normal, l);
 			glm::vec3 v = glm::normalize(eye_pos - point);
 			glm::vec3 h = glm::normalize(v + l);
-
-			// TODO: For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular* 
-			// components are. Then, accumulate that result on the *result_color* object.
 			
 			glm::vec3 diffuse = kd * (light.intensity * float(1.f/pow(r, 2.0))) * std::max(0.f, nl);
 			float nh = normal.x * h.x + normal.y * h.y + normal.z * h.z;
@@ -138,8 +129,6 @@ public:
 			result_color += specular;
 			result_color += ambient;
 		}
-		//result_color += amb_light_intensity;
-		
 		return glm::vec4{std::min(1.f,result_color.x), std::min(1.f,result_color.y), std::min(1.f,result_color.z), 0};
 	}
 

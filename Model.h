@@ -86,7 +86,6 @@ public:
 				iss >> vt.x;
 				iss >> vt.y;
 				vt.y = 1 - vt.y;
-				//¶þÎ¬ÎÆÀí z=0
 				iss >> vt.z;
 				texcoords.push_back(glm::vec2(vt.x, vt.y));
 				continue;

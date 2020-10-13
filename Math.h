@@ -42,6 +42,7 @@ glm::mat4 GetPerspectiveMatrix(const float& fov, const float& AspectRatio, const
 	float b = -t;
 	float r = AspectRatio * t;
 	float l = -r;
+
 	//这是构成整个投影矩阵的三个矩阵
 	/*glm::mat4 pre(n, 0, 0, 0,
 		0, n, 0, 0,
@@ -60,6 +61,7 @@ glm::mat4 GetPerspectiveMatrix(const float& fov, const float& AspectRatio, const
 	result = ort* tmp * pre;
 	result[2][3] *= -1;*/
 	//可以化简为如下矩阵
+
 	result = glm::mat4(n / r, 0, 0, 0,
 		0, n / t, 0, 0,
 		0, 0, -(f + n) / (f - n), -1,

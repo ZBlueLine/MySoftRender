@@ -11,7 +11,7 @@ class Material {
 public:
 	glm::vec4 Color;
 	glm::vec4 Specular;
-	int Gloss;   // 8 - 256
+	int Gloss; 
 	Texture* MainTex;
 
 	Material() :

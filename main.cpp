@@ -6,6 +6,8 @@
 #include "Material.h"
 #include "Model.h"
 #include "global.h"
+#include <thread>
+#include <Windows.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -16,29 +18,42 @@ const unsigned int SCR_HEIGHT = 600;
 Rasterizer *r = new Rasterizer(SCR_WIDTH, SCR_HEIGHT);
 Camera* cam = new Camera();
 
+int fps = 0;
+
+void ShowFps(GLFWwindow* window)
+{
+    while (true)
+    {
+        Sleep(1000);
+        std::string FPS = "Fps " + std::to_string(fps);
+        glfwSetWindowTitle(window, FPS.c_str());
+        fps = 0;
+    }
+}
+
 int main()
 {
     Material bodyMat;
     Texture bodyTexture;
-    bodyTexture.LoadTexture("neptune\\Texf_body02.jpg");
+    bodyTexture.LoadTexture("neptune/Texf_body02.jpg");
     bodyMat.SetTexture(bodyTexture);
 
     Material faceMat;
     Texture faceTexture;
-    faceTexture.LoadTexture("neptune\\Tex002f_body01.jpg");
+    faceTexture.LoadTexture("neptune/Tex002f_body01.jpg");
     faceMat.SetTexture(faceTexture);
 
     Material mouseMat;
     Texture mouseTexture;
-    mouseTexture.LoadTexture("neptune\\Texf_mouse.jpg");
+    mouseTexture.LoadTexture("neptune/Texf_mouse.jpg");
     mouseMat.SetTexture(mouseTexture);
 
     Material eyeMat;
     Texture eyeTexture;
-    eyeTexture.LoadTexture("neptune\\Tex001f_eye.jpg");
+    eyeTexture.LoadTexture("neptune/Tex001f_eye.jpg");
     eyeMat.SetTexture(eyeTexture);
 
-    Model model("neptune\\neptune.obj");
+    Model model("neptune/neptune.obj");
     model.SetMaterial(0, mouseMat);
     model.SetMaterial(1, faceMat);
     model.SetMaterial(2, bodyMat);
@@ -46,10 +61,10 @@ int main()
 
     Material spotMat;
     Texture spotTexture;
-    spotTexture.LoadTexture("neptune\\spot\\spot_texture.png");
+    spotTexture.LoadTexture("neptune/spot/spot_texture.png");
     spotMat.SetTexture(spotTexture);
 
-    Model spot("neptune\\spot\\spot_triangulated_good.obj");
+    Model spot("neptune/spot/spot_triangulated_good.obj");
     spot.SetMaterial(0, spotMat);
 
     Mesh box;
@@ -99,7 +114,7 @@ int main()
     r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
     float angle = 0; 
     auto  Type = Rasterizer::DrawType::DrawTriangle;
-    //r->LoadTexture("Texture/mob.jpg");
+
     std::cout << "是否显示模型线框？Y/N" << std::endl;
     while (1)
     {
@@ -115,6 +130,8 @@ int main()
         else 
             std::cout << "输入Y或者N"<<std::endl;
     }
+    std::thread CntFps(ShowFps, window);
+    CntFps.detach();
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -140,6 +157,7 @@ int main()
 
         r->Show();
         glfwSwapBuffers(window);
+        ++fps;
         glfwPollEvents();
     }
     glfwTerminate();
