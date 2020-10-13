@@ -12,3 +12,6 @@ GitHub上放了一个可以直接运行的Release版
 # 10.13
 
 增加了模型加载和phong光照模型
+
+
+![image](https://github.com/ZBlueLine/MySoftRender/blob/Light/img/%E5%85%89%E7%85%A7.png)
