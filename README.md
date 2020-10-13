@@ -8,3 +8,7 @@ GitHub上放了一个可以直接运行的Release版
 ![image](https://github.com/ZBlueLine/MySoftRender/blob/master/img/%E7%BA%BF%E6%A1%86.png)
 ![image](https://github.com/ZBlueLine/MySoftRender/blob/master/img/%E8%A3%81%E5%89%AA.png)
 ![image](https://github.com/ZBlueLine/MySoftRender/blob/master/img/%E8%A3%81%E5%89%AA2.png)
+
+# 10.13
+
+增加了模型加载和phong光照模型
