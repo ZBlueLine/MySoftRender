@@ -18,13 +18,13 @@ public:
 		const glm::vec4& c = glm::vec4(0, 0, 0, 0),
 		const glm::vec4& n = glm::vec4(0, 0, 0, 0),
 		const glm::vec2& t = glm::vec2(0, 0))
-		:position(p), color(c), texcoord(t), normal(n)
+		:position(p), color(c), normal(n), texcoord(t)
 	{}
 	Vertex(const glm::vec3& p,
 		const glm::vec4& c = glm::vec4(0, 0, 0, 0),
 		const glm::vec4& n = glm::vec4(0, 0, 0, 0),
 		const glm::vec2& t = glm::vec2(0, 0))
-		:position(p, 1.0f), color(c), texcoord(t), normal(n)
+		:position(p, 1.0f), color(c), normal(n), texcoord(t)
 	{}
 
 };
@@ -36,7 +36,7 @@ public:
 	glm::vec4 windowp;
 	glm::vec4 color;
 	glm::vec2 texcoord;
-	glm::vec4 normal;
+	glm::vec3 normal;
 	float Z;
 	VtoR() = default;
 

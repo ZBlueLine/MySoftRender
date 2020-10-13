@@ -8,7 +8,12 @@ glm::mat4 GetModelMatrix()
 	return glm::mat4(1.0f);
 }
 
-
+glm::mat4 GetNormalMatrix(const glm::mat4& model) {
+	glm::mat3 result = model;
+	result = glm::inverse(result);
+	result = glm::transpose(result);
+	return result;
+}
 
 glm::mat4 GetViewMatrix(glm::vec4 Position, glm::vec3 Front, glm::vec3 Up)
 {
@@ -92,10 +97,10 @@ glm::mat4 RodriguesRotationFormula(glm::vec3 point, glm::vec3 axis, float angle)
 		0, 0, 0,
 		0, 0, 0);
 	rotation = cos(glm::radians(angle)) * I + (1 - cos(glm::radians(angle))) * Axis * TAxis + sin(glm::radians(angle)) * cross_product;
-	trans = glm::mat4(1, 0, 0, point[0],
-		0, 1, 0, point[1],
-		0, 0, 1, point[2],
-		0, 0, 0, 1);
+	trans = glm::mat4(1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		point[0], point[1], point[2], 1);
 	ans = glm::mat4(glm::vec4(rotation[0], 0),
 		glm::vec4(rotation[1], 0),
 		glm::vec4(rotation[2], 0),

@@ -1,10 +1,11 @@
-#include "global.h"
+
 #include "Rasterizer.h"
 #include "Mesh.h"
 #include "Camera.h"
 #include "Shader.h"
 #include "Material.h"
 #include "Model.h"
+#include "global.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -17,8 +18,6 @@ Camera* cam = new Camera();
 
 int main()
 {
-
-
     Material bodyMat;
     Texture bodyTexture;
     bodyTexture.LoadTexture("neptune\\Texf_body02.jpg");
@@ -44,6 +43,14 @@ int main()
     model.SetMaterial(1, faceMat);
     model.SetMaterial(2, bodyMat);
     model.SetMaterial(3, eyeMat);
+
+    Material spotMat;
+    Texture spotTexture;
+    spotTexture.LoadTexture("neptune\\spot\\spot_texture.png");
+    spotMat.SetTexture(spotTexture);
+
+    Model spot("neptune\\spot\\spot_triangulated_good.obj");
+    spot.SetMaterial(0, spotMat);
 
     Mesh box;
     box.CreatCube(0.0, 0.0, 0.0, 0.5);
@@ -111,13 +118,26 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
-        r->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01)));
+        r->SeteyePoint(cam->GetPosition());
         r->SetViewMatrix(GetViewMatrix(cam->GetPosition(), cam->GetFront(), cam->GetUp()));
         r->ClearBuffer(glm::vec4(0.1, 0.35, 0.5, 1.0));
-        r->DrawModel(model, Type);
 
         r->SetModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, -2, 0)));
         r->DrawObject(Cube, Type);
+        
+        glm::mat4 ModelMat = glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01));
+        r->SetModelMatrix(ModelMat);
+        
+        r->DrawModel(model, Type);
+
+
+        ModelMat = RodriguesRotationFormula(glm::vec3(2, 0, 0), glm::vec3(0, 1, 0), 180) * glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0));
+
+
+
+        r->SetModelMatrix(ModelMat);
+        r->DrawModel(spot, Type);
+
         r->Show();
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -129,24 +149,47 @@ int main()
 
 void processInput(GLFWwindow* window)
 {
+
+#ifdef _DEBUG
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        cam->pitch(2.5f);
+        cam->pitch(5.5f);
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        cam->pitch(-2.5f);
+        cam->pitch(-5.5f);
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        cam->yaw(2.5f);
+        cam->yaw(5.5f);
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        cam->yaw(-2.5f);
+        cam->yaw(-5.5f);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cam->MoveZ(0.08f);
+        cam->MoveZ(1.1f);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cam->MoveZ(-0.08f);
+        cam->MoveZ(-1.1f);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cam->MoveX(-0.08f);
+        cam->MoveX(-1.1f);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cam->MoveX(0.08f);
+        cam->MoveX(1.1f);
+#else
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        cam->pitch(1.f);
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        cam->pitch(-1.f);
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        cam->yaw(1.f);
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        cam->yaw(-1.f);
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cam->MoveZ(0.04f);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cam->MoveZ(-0.04f);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cam->MoveX(-0.04f);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cam->MoveX(0.04f);
+#endif
+    
 }
 
 

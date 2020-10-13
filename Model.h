@@ -12,7 +12,10 @@
 class Model
 {
 public:
+
 	std::vector<Object> objects;
+
+
 	Model() = default;
 	~Model() = default;
 	Model(const std::string& path) {

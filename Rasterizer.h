@@ -14,9 +14,9 @@ private:
 	int Width;
 	int Height;
 	FrameBuffer *Buf;
-	Shader *shader;
 	glm::mat4 ViewPortMatrix = glm::mat4(1.0f);
 public:
+	Shader* shader;
 
 	void Setsize(const int& w, const int& h)
 	{
@@ -122,6 +122,12 @@ public:
 	void SetModelMatrix(const glm::mat4& Mat)
 	{
 		shader->SetModelMatrix(Mat);
+		SetNormalMatrix(GetNormalMatrix(Mat));
+	}
+
+	void SetNormalMatrix(const glm::mat3& Mat)
+	{
+		shader->SetNormalMatrix(Mat);
 	}
 
 	void SetViewMatrix(const glm::mat4& Mat)
@@ -137,6 +143,11 @@ public:
 	void SetViewPortMatrix(const glm::mat4& Mat)
 	{
 		ViewPortMatrix = Mat;
+	}
+
+	void SeteyePoint(const glm::vec3& eye)
+	{
+		shader->SeteyePoint(eye);
 	}
 
 	void ClearBuffer(glm::vec4 color)
@@ -202,6 +213,7 @@ public:
 		if (obj.mesh.EBO.empty()) {
 			return;
 		}
+		currentMat = &obj.material;
 		shader->SetTexture(*obj.material.MainTex);
 		DrawMesh(obj.mesh, type);
 	}
