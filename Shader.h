@@ -88,9 +88,9 @@ public:
 	{
 		glm::vec4 return_color = { 0, 0, 0, 0 };
 		if (Tex->data)
-		{
 			return_color = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
-		}
+		else
+			return_color = v.color;
 		glm::vec4 texture_color(return_color.x, return_color.y, return_color.z, return_color.w);
 
 		glm::vec3 ka = glm::vec3(0.005, 0.005, 0.005);

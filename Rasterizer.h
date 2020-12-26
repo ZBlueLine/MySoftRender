@@ -157,6 +157,20 @@ public:
 
 	void Show()
 	{
+		std::vector<unsigned char> tColorData;
+		tColorData.resize(Width * Height * 4);
+		for (int i = 0; i < Width; ++i)
+		{
+			for (int j = 0; j < Height; ++j)
+			{
+				float DepthColor = Buf->DepthData[(i + j * Width)] * 255;
+				tColorData[(i + j * Width) * 4] = DepthColor;
+				tColorData[(i + j * Width) * 4 + 1] = DepthColor;
+				tColorData[(i + j * Width) * 4 + 2] = DepthColor;
+				tColorData[(i + j * Width) * 4 + 3] = 1.0;
+			}
+		}
+		//glDrawPixels(Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, tColorData.data());
 		glDrawPixels(Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, Buf->ColorData.data());
 	}
 
