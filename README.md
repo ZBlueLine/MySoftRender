@@ -15,3 +15,9 @@ GitHub上放了一个可以直接运行的Release版
 
 
 ![image](https://github.com/ZBlueLine/MySoftRender/blob/Light/img/%E5%85%89%E7%85%A7.png)
+
+
+
+
+相关资料
+渲染管线 https://learnopengl-cn.github.io/01%20Getting%20started/04%20Hello%20Triangle/
