@@ -85,8 +85,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>D:\soft\Thirdpartylib\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\soft\Thirdpartylib\include;D:\soft\Thirdpartylib\include\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\PATH\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\PATH\Include;D:\PATH\Include\glm;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

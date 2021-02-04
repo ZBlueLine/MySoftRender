@@ -1,0 +1,462 @@
+/* Main */
+
+.header {
+	margin: auto;
+	width: 70%;
+	//min-width : 600px;
+	padding: 20px;
+	
+	transition: width 0.5s;
+}
+
+.footer {
+	margin: auto;
+	width: 70%;
+	//min-width : 600px;
+	padding: 0px;
+	text-align: center;
+	
+	transition: width 0.5s;
+}
+
+.content {
+	margin: auto;
+	width: 70%;
+	//min-width : 600px;
+	border: 4px solid #303030;
+	padding: 30px;
+	background-color: #202020;
+	border-radius: 20px;
+	box-shadow: 5px 5px 10px 0px #191919;
+	
+	transition: width 0.5s;
+}
+
+/* Large Screen (PC) */
+@media screen and (min-width: 1200px) {
+  .header, .footer, .content {
+    width: 50%;
+  }
+}
+
+/* Small Screen (PC) */
+@media screen and (max-width: 1000px) {
+  .header, .footer, .content {
+    width: 100%;
+  }
+}
+
+body {
+	font-family: "Lato", sans-serif;
+	background-color: #252830;
+	color: #dddddd;
+	line-height: 180%;
+	word-break: break-word;
+}
+
+/* Navigation */
+
+.header ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #202020;
+	border-radius: 20px;
+	border: 4px solid #303030;
+	box-shadow: 5px 5px 10px 0px #191919;
+}
+
+.header li {
+  float: left;
+}
+
+.header li a {
+  display: block;
+  text-align: center;
+  padding: 5px 20px;
+  text-decoration: none;
+}
+
+.header li a:hover {
+  background-color: #008899;
+}
+
+/* Link Colours */
+
+a:link {
+  color: #00aabb;
+}
+
+a:visited {
+  color: #00aabb;
+}
+
+a:hover {
+  color: #00ddff;
+}
+
+a:active {
+  color: #00ddff;
+}
+
+/* Card */
+
+.card {
+	margin-top: 20px;
+	border-radius : 10px;
+	background-color: #282828;
+	line-height: 120%;
+}
+/*
+.card-compact {
+	margin-top: 10px;
+	border-radius : 10px;
+	background-color: #282828;
+	//border: 3px solid #151515;
+	line-height: 120%;
+	//display: flex;
+	//align-content: flex-start;
+}
+
+.card-image {
+	width: 100%;
+	height: 300px;
+	border-radius: 10px 10px 0px 0px;
+	margin : 0px;
+	object-fit: cover;
+}*/
+/*
+.card-image-small {
+	//height: 100%;
+	border-radius: 10px 0px 0px 10px;
+	object-fit: cover;
+	margin : 5px;
+    //float:left;
+}*/
+
+.card-text {
+	//margin: auto;
+	padding: 10px;
+	//border: 3px solid #151515;
+	//display: inline-block;
+    overflow: hidden;
+	
+	//min-width : 300px;
+}
+
+/* Large Screen (PC) */
+@media screen and (min-width: 600px) {
+	
+	.card-image {
+		width: 100%;
+		height: 300px;
+		border-radius: 10px 10px 0px 0px;
+		margin : 0px;
+		object-fit: cover;
+	}
+	
+	.card-compact {
+		clear : left;
+		margin-top: 10px;
+		border-radius : 10px;
+		background-color: #282828;
+		line-height: 120%;
+		display: flex;
+		align-content: flex-start;
+	}
+	
+	.card-compact:hover > .card-image-box > .card-image-small {
+		height : 110%;
+		bottom : 5%;
+	}
+	
+	.card-image-box { /* only used for .card-compact / .card-image-small*/
+		border-radius: 10px 0px 0px 10px;
+		width : 200px;
+		min-width : 200px;
+		overflow: hidden;
+		
+		vertical-align: middle;
+        text-align: center;
+        display: table-cell;
+	}
+	
+	.card-image-small {
+		//display: block;
+		margin : 0;
+		height : 100%;
+		object-fit: cover;
+		transition: height 0.4s, bottom 0.4s;
+		position : relative;
+		bottom : 0px;
+	}
+	
+}
+
+/* Small Screen (Mobile) */
+@media screen and (max-width: 600px) {
+	
+	.card-compact {
+		margin-top: 20px;
+		border-radius : 10px;
+		background-color: #282828;
+		//border: 3px solid #151515;
+		line-height: 120%;
+	}
+	
+	.card-image, .card-image-small {
+		width : 100%;
+		height : 150px;
+		border-radius: 10px 10px 0px 0px;
+		margin : auto;
+		object-fit: cover;
+	}
+	
+}
+
+.card-compact:hover > .card-text > h2 > a {
+	color: #00ddff;
+}
+
+.card-text h2 {
+	line-height: 100%;
+}
+
+.card-text time {
+	font-size: 12px;
+}
+
+/* Misc */
+
+time {
+	color: #888;
+}
+
+.title-no-margin {
+	margin: 0;
+}
+
+.link-plain {
+	color: #00aabb;
+	text-decoration: none;
+}
+
+.small-text {
+	font-size: 13px;
+}
+
+/* Logo */
+
+.logo {
+	background-color: #ffffff;
+	border-radius: 50%;
+	float: left;
+	margin: 0;
+	margin-bottom:30px;
+}
+
+.logo-text {
+	color: #00aabb;
+	text-decoration: none;
+	position: relative;
+	top: 50px;
+	left: 15px;
+}
+
+.logo-subtext {
+	position: relative;
+	top: 60px;
+	left: 15px;
+}
+
+nav {
+	clear : both;
+}
+
+/* Post Elements */
+
+.tag {
+	line-height: 100%;
+	display: inline-block;
+	background-color: #00aabb;
+	border-radius : 10px;
+	padding : 5px;
+	margin : 2px;
+}
+
+.node {
+	display: inline-block;
+	line-height: 100%;
+	color: #00aabb;
+	background-color: #303030;
+	padding-top : 3px;
+	padding-bottom : 3px;
+	padding-left : 7px;
+	padding-right : 7px;
+	margin : 0px;
+	border: 2px solid #151515;
+	border-radius : 10px;
+}
+
+.highlight {
+	line-height: 120%;
+}
+
+img {
+	max-width: 100%;
+	margin : 10px;
+}
+
+video {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.img-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.img-left {
+	display: inline-block;
+	float : left;
+	margin-right : 20px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+
+.img-right {
+	display: inline-block;
+	float : right;
+	margin-left : 20px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+
+.img-text {
+	color : #888888;
+	font-size: 13px;
+	text-align: center;
+	margin : auto;
+}
+
+.img-clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+/* note, this also affects the .highlight table which is annoying. might be related to the "table" in highlight cs "linenos=table,linenostart=1"
+table {
+	border: 2px solid #151515;
+	background-color : #191919;
+	border-collapse: collapse;
+}
+
+th, tr:nth-child(even) {
+  background-color: #252525;
+}
+
+td {
+	padding-left : 10px;
+	padding-right : 10px;
+}
+*/
+
+/* Pagination */
+
+.pagination {
+	list-style-type: none;
+	margin: auto;
+	margin-top : 5px;
+	overflow: hidden;
+	background-color: #202020;
+	float: right;
+}
+
+.page-item {
+	float: left;
+  	border: 2px solid #303030;
+	border-radius : 10px;
+	margin : 3px;
+	margin-top : 10px;
+	width : 25px;
+	height : 25px;
+	text-align: center;
+	line-height: 150%;
+}
+
+.page-item.active {
+	border: 2px solid #00aabb;
+	color: #00aabb;
+}
+
+.page-item.disabled {
+	color: #505050;
+}
+
+.page-item.disabled a:hover {
+	color: #505050;
+}
+
+.page-link {
+	text-align: center;
+	text-decoration: none;
+}
+
+/* Cookie Container */
+
+.cookie-container {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: #161616;
+  color: #00aabb;
+  padding: 0 32px;
+  box-shadow: 0 -2px 16px rgba(47, 54, 64, 0.39);
+  text-align: center;
+  font-size: 14px;
+  
+  transition: 400ms;
+}
+
+.cookie-container.active {
+  bottom: 0;
+}
+
+.cookie-refuse-btn {
+	background: #606060;
+	border: 0;
+	color: #151515;
+	padding: 10px 25px;
+	margin-left : 5px;
+	font-size: 15px;
+	margin-bottom: 16px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.cookie-refuse-btn:hover {
+	background: #707070;
+}
+
+.cookie-accept-btn {
+	background: #00aabb;
+	border: 0;
+	color: #151515;
+	padding: 10px 25px;
+	margin-right : 5px;
+	font-size: 15px;
+	margin-bottom: 16px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.cookie-accept-btn:hover {
+	background: #11bbcc;
+}
