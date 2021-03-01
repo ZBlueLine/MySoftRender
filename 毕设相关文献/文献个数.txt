@@ -1,0 +1,13 @@
+1.四元数  2020
+2.中国计算机图形学研究进展
+3.Lighting Technology of The Last of Us Part II
+4.Catlike Coding Rendering published   2016-02-26
+5. 罗德里格斯转换公式推导  天骐	 2017-12-07
+6.Quaternions for Computer Graphics   Vince, John 2011
+7.透视校正插值  任程  2008-03-13
+8.“Fast Extraction of Viewing Frustum Planes from the WorldView-Projection Matrix”  Gil Gribb &Klaus Hartmann  06/15/2001
+9. Software Rasterization Algorithms for filling triangles
+10.Fundamentals of Computer Graphics   Steve Marschner&Peter Shirley  2015-12-18
+11. 软渲染器Soft Renderer：光栅化篇   WC Yang 2019-05-01
+12. Depth    Cyanilux   Nov 25, 2020
+ 

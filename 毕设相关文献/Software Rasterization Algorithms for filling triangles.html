@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0091)http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html#algo2 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Software Rasterization Algorithms for filling triangles</title>
+<style type="text/css">
+<!--
+.WebLinkLayout {
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.HeadLineLayout {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+}
+.ChapterLayout {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+}
+.SmallFont {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.normaltext {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+	text-decoration: none;
+}
+.CodeFont {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	line-height: 17px;
+}
+.CodeFontBlue {
+	font-family: "Courier New", Courier, monospace;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #0000CC;
+	font-size: 12px;
+	line-height: 17px;
+}
+.CodeFontGreen {
+	font-family: "Courier New", Courier, monospace;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #006600;
+	font-size: 12px;
+	line-height: 17px;
+}
+table.CodeTable { border-width: 1px;
+ border-spacing: 0px;
+ border-style: dashed;
+ border-color: blue;
+ border-collapse: separate;
+ background-color: rgb(255, 250, 250);
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%" border="0" bgcolor="#FFCC66" align="center">
+  <tbody><tr>
+    <td><div align="center" class="HeadLineLayout"><font color="#FFFFFF" size="4">Software Rasterization Algorithms for Filling Triangles</font></div></td>
+  </tr>
+</tbody></table>
+
+<p><img src="./Software Rasterization Algorithms for filling triangles_files/arrow.png" width="10" height="11" alt=" "> <a href="http://www.sunshine2k.de/Files/TriangleRasterization.zip" class="WebLinkLayout">Download Article and Source</a> <span class="SmallFont">(153 kb)</span></p>
+
+<div align="center">
+  <applet code="TriangleRasterisation.TriangleRasterizationApplet.class" width="730" height="330" archive="TriangleRasterization.jar">
+  </applet>
+</div>
+
+<p class="ChapterLayout">I. Introduction</p>
+<p class="normaltext">This article discusses various algorithms  how to draw a solid triangle. This task is a basic requirement of a graphic engine and is often also called 'Triangle Rasterization/Rasterisation'. Three different approaches are presented which are  implemented in the applet above. <br>
+  Note that also the <a href="http://www.sunshine2k.de/coding/java/Polygon/Filling/FillPolygon.htm" class="WebLinkLayout">scanline algorithm</a> can be used, but it is designed for the general case of filling a polygon and thus a bit overdesigned.<br>
+todo: solid / fluxionary with different vertice colors, not all are equally fast</p>
+<ul><li class="normaltext"><a href="http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html#algo1" class="WebLinkLayout">Standard algorithm: The most common approach</a></li>
+  <li class="normaltext"><a href="http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html#algo2" class="WebLinkLayout">Bresenham Algorithm (completely integer based)</a></li>
+  <li class="normaltext"><a href="http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html#algo3" class="WebLinkLayout">Barycentric Algorithm</a></li>
+</ul>
+<p class="normaltext">A required prerequisite for the first two algorithms (Standard &amp; Bresenham) is a defined order of the three triangle vertices. So we know which is the most top vertice respectively the lowest vertice. Assuming the origin of the coordinate is  the topleft corner, thus the lower a vertice is the bigger its y-coordinate is, we define the order  v<sub>1</sub>.y &lt;= v<sub>2</sub>.y &lt;= v<sub>3</sub>.y. The sorting of the three vertices has to be performed as very first step.</p>
+<p class="ChapterLayout"><a name="algo2" id="algo2"></a>II. Standard Algorithm</p>
+<p class="normaltext">The standard algorithm uses the fact that the two easy cases, a flat bottom and a flat top triangle, are easy to draw. <br>
+This is due to the fact that the difference in y is equal for both legs. Looking at the figure below, it's easy to see that y<sub>1</sub> - y<sub>2</sub> = y<sub>1</sub> - y<sub>3</sub>. The idea of this algorithm is to traverse both legs step by step in y-direction and draw a straight horizontal line between both endpoints.<br>
+Therefore the change of x per y-step (that is dx/dy = 1 / slope = invslope) is required, contrary to the normal slope which gives the delta in y per x-step.<br>
+<strong><br>
+</strong> The algorithm now performs as following: <br>
+First  calculate invslope for each leg. Then  just iterate from top (y<sub>1</sub>) to bottom (y<sub>2</sub>) and add invslope1 and invslope2 to  temporary variables - this gives  the endpoints of a straight line. No the triangle can easily be drawn by plotting horizontal lines - see the pseudocode of <em>fillBottomTriangle()</em>.</p>
+<table width="90%" border="0">
+  <tbody><tr>
+    <td width="1%"><img src="./Software Rasterization Algorithms for filling triangles_files/flatbottomtriangle.png" alt=""></td>
+    <td width="99%"><table width="90%" border="0" class="CodeTable">
+      <tbody><tr>
+        <td height="235" class="CodeFont"><p> <strong>fillBottomFlatTriangle</strong>(Vertice v1, Vertice v2, Vertice v3)<br>
+{<br>
+&nbsp;&nbsp;<span class="CodeFontBlue">float</span> invslope1 = (v2.x - v1.x) / (v2.y - v1.y);<br>
+&nbsp;&nbsp;<span class="CodeFontBlue">float</span> invslope2 = (v3.x - v1.x) / (v3.y - v1.y);</p>
+          <p> &nbsp;&nbsp;<span class="CodeFontBlue">float</span> curx1 = v1.x;<br>
+            &nbsp;&nbsp;<span class="CodeFontBlue">float</span> curx2 = v1.x;</p>
+          <p> &nbsp;&nbsp;<span class="CodeFontBlue">for</span> (<span class="CodeFontBlue">int</span> scanlineY = v1.y; scanlineY &lt;= v2.y; scanlineY++)<br>
+            &nbsp;&nbsp;{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;drawLine((<span class="CodeFontBlue">int</span>)curx1, scanlineY, (<span class="CodeFontBlue">int</span>)curx2, scanlineY);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;curx1 += invslope1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;curx2 += invslope2;<br>
+&nbsp;&nbsp;}<br>
+          }</p>
+          </td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+<p class="normaltext">Drawing a float top triangle is as easy as drawing the flat bottom triangle. It makes sense to change the y-iteration direction so that vertice v<sub>3</sub> serves as  common starting point and iteration goes from bottom to top; the actual algorithm is basically the same as for the flat bottom case:</p>
+<table width="90%" border="0">
+  <tbody><tr>
+    <td width="1%"><img src="./Software Rasterization Algorithms for filling triangles_files/flattoptriangle.png" alt=""></td>
+    <td width="99%"><table width="90%" border="0" class="CodeTable">
+      <tbody><tr>
+        <td height="235" class="CodeFont"><p>  <strong>fillTopFlatTriangle</strong>(Vertice v1, Vertice v2, Vertice v3)<br>
+{<br>
+&nbsp;&nbsp;<span class="CodeFontBlue">float</span> invslope1 = (v3.x - v1.x) / (v3.y - v1.y);<br>
+&nbsp;&nbsp;<span class="CodeFontBlue">float</span> invslope2 = (v3.x - v2.x) / (v3.y - v2.y);</p>
+              <p> &nbsp;&nbsp;<span class="CodeFontBlue">float</span> curx1 = v3.x;<br>
+                &nbsp;&nbsp;<span class="CodeFontBlue">float</span> curx2 = v3.x;</p>
+              <p> &nbsp;&nbsp;<span class="CodeFontBlue">for</span> (<span class="CodeFontBlue">int</span> scanlineY = v3.y; scanlineY &gt; v1.y; scanlineY--)<br>
+                &nbsp;&nbsp;{<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;drawLine((<span class="CodeFontBlue">int</span>)curx1, scanlineY, (<span class="CodeFontBlue">int</span>)curx2, scanlineY);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;curx1 -= invslope1;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;curx2 -= invslope2;<br>
+                &nbsp;&nbsp;}<br>
+                }</p></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+<p align="left" class="normaltext">Finally the general case: The basic idea of drawing a general triangle is to decompose it into two triangles - a flat bottom triangle and a flat top triangle - and draw  them both. <br>
+The main task is to find the intersection boundary which splits the triangle. Actually we need to find a fourth vertex v<sub>4</sub> which is the intersection point of the boundary line and the long edge of the triangle. Let's have a look at outline below: </p>
+<p align="center" class="normaltext"><img src="./Software Rasterization Algorithms for filling triangles_files/generalTriangle.png" alt=""></p>
+<p align="left" class="normaltext">The y-coodinate of v<sub>4</sub> is obvious because v<sub>4</sub> lies on the same horizontal line (the intersection boundary) as v<sub>2</sub>, thus v<sub>4</sub>.y = v<sub>2</sub>.y.<br>
+  To find v<sub>4</sub>.x, the Intercept Theorem can be applied, see the derivation on the right side of above picture. Finally we have flat bottom triangle Δ1 = (V<sub>1</sub>, V<sub>2</sub>, V<sub>4</sub>) and a flat top triangle Δ2 = (V<sub>2</sub>, V<sub>4</sub>, V<sub>3</sub>) which both can be rasterized with the algorithms above.<br>
+Here the final algorithm for all triangles:</p>
+<table width="90%" border="0" class="CodeTable">
+  <tbody><tr>
+    <td height="235" class="CodeFont"><p><strong>drawTriangle</strong>()<br>
+      {<br>
+ &nbsp;&nbsp;       <span class="CodeFontGreen">/* at first sort the three vertices by y-coordinate ascending so v1 is the topmost vertice */</span><br>
+        &nbsp;&nbsp;sortVerticesAscendingByY();<br>
+        <br>
+        &nbsp;&nbsp;<span class="CodeFontGreen">/* here we know that v1.y &lt;= v2.y &lt;= v3.y */<br>
+&nbsp;&nbsp;/* check for trivial case of bottom-flat triangle */</span><br>
+        &nbsp;&nbsp;<span class="CodeFontBlue">if</span> (v2.y == v3.y)<br>
+        &nbsp;&nbsp;{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong>fillBottomFlatTriangle</strong>(v1, v2, v3);<br>
+        &nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;<span class="CodeFontGreen">/* check for trivial case of top-flat triangle */</span><br>
+        &nbsp;&nbsp;<span class="CodeFontBlue">else if</span> (vt1.y == vt2.y)<br>
+        &nbsp;&nbsp;{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong>fillTopFlatTriangle</strong>(g, vt1, vt2, vt3);<br>
+        &nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;<span class="CodeFontBlue">else</span><br>
+        &nbsp;&nbsp;{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="CodeFontGreen">/* general case - split the triangle in a topflat and bottom-flat one */</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Vertice v4 = new Vertice( <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="CodeFontBlue">int</span>)(vt1.x + ((<span class="CodeFontBlue">float</span>)(vt2.y - vt1.y) / (<span class="CodeFontBlue">float</span>)(vt3.y - vt1.y)) * (vt3.x - vt1.x)), vt2.y);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong>fillBottomFlatTriangle</strong>(g, vt1, vt2, v4);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong>fillTopFlatTriangle</strong>(g, vt2, v4, vt3);<br>
+        &nbsp;&nbsp;}<br>
+        }</p>
+    </td>
+  </tr>
+</tbody></table>
+<p class="ChapterLayout"><a name="algo3" id="algo3"></a>III. Bresenham Algorithm</p>
+<p class="normaltext">I assume the reader knows the Bresenham algorithm for drawing lines in order to understand this approach - if not, please check a good article before proceeding, e.g <a href="http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html#sunbresenhamarticle" class="WebLinkLayout">[1]</a>... (on no! house advertising ;))</p>
+<p class="normaltext">The main idea is to use the same partition approach as in the previous chapter, thus splitting a triangle into two, each with a flat side. I'm not going to repeat the partition as it's really the same, so the explanation just focus on rasterizing a flat side triangle.</p>
+<p class="normaltext">So let's start: Suppose we just want to draw the line from v<sub>1</sub> to v<sub>2</sub> using the bresenham algorithm. Ignoring breshenham details like swapping variables depending on the slope etc, we also assume for our example without loss of generality that we go in y-direction and having the error value e = dx/dy. So we iterate in the y-direction and in each step as long as e &gt;= 0 go into the x-direction. Till this point we completely comply with the bresenham algorithm - nothing special.<br>
+What we notice is that because we do step in y-direction, the bresenham algorithm <em>provides us</em> a point on the line for each y-coordinate between v<sub>1</sub> and v<sub>2</sub>. So why not use  the bresenham algorithm to plot also the line from v<sub>1</sub> to v<sub>3</sub>? If we also find the corresponding point - that is the point with the same y-coordinate on the edge v<sub>1</sub>v<sub>3</sub> - we just have to draw horizontal lines to fill the triangle. This implies following procedure:</p>
+<table width="90%" border="0">
+  <tbody><tr>
+    <td width="35%"><img src="./Software Rasterization Algorithms for filling triangles_files/bresenhamIdea.png" width="282" height="206" alt=""></td>
+    <td width="65%">
+      <ol class="normaltext" style="margin-left:-10px">
+       <li>Draw the line V<sub>1</sub>V<sub>2</sub> using the bresenham algorithm, but stop if the algorithm moves one pixel in y-direction.</li>
+       <li>Draw also the line V<sub>1</sub>V<sub>3</sub> using the bresenham algorithm, and stop if the algorithm moves one pixel in y-direction.<br>
+       At this point we are on the same y-coordinate for line V<sub>1</sub>V<sub>2</sub> as well as for line V<sub>1</sub>V<sub>3</sub>.</li>
+       <li>Draw the horizontal lines between both current line points.</li>
+       <li>Repeat above steps until you triangle is completely rasterised.</li>
+      </ol>
+    </td>
+  </tr>
+</tbody></table>
+<p class="normaltext">I am going to waive the source code listing at this point as it's lengthy and nothing more than the bresenham algorithm runs in parallel for two lines. For further information please check the actual source code in the archive.</p>
+
+<p class="ChapterLayout">IV. Barycentric Algorithm</p>
+<p class="normaltext">For the Barycentric approach, we will again reuse existing knowledge - by applying the Barycentric Algorithm for deciding if a point lies inside or outside a triangle. This is discussed in <a href="http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html#pointintrianglearticle" class="WebLinkLayout">[2]</a> (oh no! No more house advertising... ).</p>
+<p class="normaltext">The main idea is as follows: At first determine the bounding box of the triangle. Afterwards test for each point in the box if it lies inside the triangle - if yes just plot the pixel. Yeah... it's really so easy!</p>
+<table width="90%" border="0">
+  <tbody><tr>
+    <td width="28%"><img src="./Software Rasterization Algorithms for filling triangles_files/boundingbox.png" width="232" height="242" alt=""></td>
+    <td width="72%" class="normaltext"><p>In contrast to the other algorithms above, it's not necessary to sort the vertices. </p>
+      <p>Following code snippet determines the bounding box by calculating the minimum/maximum x/y coordinate of all three vertices:</p>
+      <table width="100%" border="0" class="CodeTable">
+        <tbody><tr>
+          <td> <span class="CodeFontGreen">/* get the bounding box of the triangle */</span><span class="CodeFont"><br>
+</span><span class="CodeFontBlue">int</span><span class="CodeFont"> maxX = Math.max(v1.x, Math.max(v2.x, v3.x));<br>
+</span><span class="CodeFontBlue">int</span><span class="CodeFont"> minX = Math.min(v1.x, Math.min(v2.x, v3.x));<br>
+</span><span class="CodeFontBlue">int</span><span class="CodeFont"> maxY = Math.max(v1.y, Math.max(v2.y, v3.y));<br>
+</span><span class="CodeFontBlue">int</span><span class="CodeFont"> minY = Math.min(v1.y, Math.min(v2.y, v3.y))</span>;</td>
+        </tr>
+      </tbody></table></td>
+  </tr>
+</tbody></table>
+<p class="normaltext">Finally, iterate over each point of the bounding box using two nested loops and paint the pixel if it's inside the triangle:</p>
+<table width="100%" border="0" class="CodeTable">
+  <tbody><tr>
+    <td><p><span class="CodeFontGreen">/* spanning vectors of edge (v1,v2) and (v1,v3) */</span><span class="CodeFont"><br>
+Vertice vs1 = new Vertice(vt2.x - vt1.x, vt2.y - vt1.y);<br>
+Vertice vs2 = new Vertice(vt3.x - vt1.x, vt3.y - vt1.y);</span></p>
+      <p> <span class="CodeFontBlue">for</span><span class="CodeFont"> (</span><span class="CodeFontBlue">int</span><span class="CodeFont"> x = minX; x &lt;= maxX; x++)<br>
+        {<br>
+  &nbsp;&nbsp;</span><span class="CodeFontBlue">for</span><span class="CodeFont"> (</span><span class="CodeFontBlue">int</span><span class="CodeFont"> y = minY; y &lt;= maxY; y++)<br>
+  &nbsp;&nbsp;{<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;Vertice q = </span><span class="CodeFontBlue">new</span><span class="CodeFont"> Vertice(x - vt1.x, y - vt1.y);<br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="CodeFontBlue">float</span><span class="CodeFont"> s = (float)crossProduct(q, vs2) / crossProduct(vs1, vs2);<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="CodeFontBlue">float</span><span class="CodeFont"> t = (float)crossProduct(vs1, q) / crossProduct(vs1, vs2);<br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="CodeFontBlue">if</span><span class="CodeFont"> ( (s &gt;= 0) &amp;&amp; (t &gt;= 0) &amp;&amp; (s + t &lt;= 1))<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;{ </span><span class="CodeFontGreen">/* inside triangle */</span><span class="CodeFont"><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drawPixel(x, y);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;}<br>
+    }</span></p></td>
+  </tr>
+</tbody></table>
+<p class="normaltext">Unfortunately, the simplicity of this algorithm comes at the price of low execution speed compared to the other two approaches.</p>
+<span class="ChapterLayout">V. Final words</span>
+<p class="normaltext">I hope this article was interesing to read and the reader learned something new. I want to mention  that some common  topics were left out from discussion:<br>
+The problem of correct rounding for example - we are working with floats, but the final points on the screen are pixels and thus integers. So it might worth to check that no pixels are left out, especially near the edges and vertices but on the other hand to ensure not to plot pixels on the outer border of the edges.<br>
+Furthermore, the first two algorithms split the triangle into two. This results in the fact that the flat side of the bottomflat triangle and also the flat side of the topflat triangle is drawn - so this falt edge it's plotted twice! Keep this is in mind - e.g. when using fancy algorithms for coloring the edges, this might cause disturbanes.</p>
+<p class="normaltext">That's it. Hope you enjoyed this article and find the applet + source useful!</p>
+
+<p class="normaltext"><em>References:</em></p>
+<p class="normaltext">
+<a name="sunbresenhamarticle" id="sunbresenhamarticle"></a>[1] <a href="http://www.sunshine2k.de/java.html#bresenham" target="_blank" class="WebLinkLayout">Bresenham Algorithm Article</a><br>
+<a name="pointintrianglearticle" id="pointintrianglearticle"></a>[2] <a href="http://www.sunshine2k.de/java.html#pointInTriangle" target="_blank" class="WebLinkLayout">Point in Triangle Algorithms Article</a></p>
+<p><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Sunshine, May 2012</font></p>
+<hr size="1" noshade="noshade">
+<p align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">This 
+  site is part of <a href="http://www.sunshine2k.de/" class="WebLinkLayout">Sunshine's Homepage</a></font></p>
+<p class="normaltext">&nbsp;</p>
+
+<script src="./Software Rasterization Algorithms for filling triangles_files/urchin.js.下载" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2878002-1";
+urchinTracker();
+</script>
+
+
+
+</body></html>
