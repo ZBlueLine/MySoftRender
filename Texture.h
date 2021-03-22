@@ -19,16 +19,17 @@ public:
 		Width = wid;
 		Height = hei;
 	}
-	Texture(const Texture* other, int wid = 0, int hei = 0)
+	Texture(const Texture& other)
 	{
-		if(other)
-			data = new unsigned char[sizeof(other->data)];
-		Width = wid;
-		Height = hei;
+		data = new unsigned char[sizeof(other.data)];
+		*data = *other.data;
+		Width = other.Width;
+		Height = other.Height;
 	}
 	~Texture()
 	{
-		delete[] data;
+		if(data)
+			delete[] data;
 	}
 
 	void LoadTexture(const std::string &Path) 

@@ -1,1 +1,6 @@
+.vs/#
 *.vs/
+Debug/
+Release/
+.vs/MySoftRender/
+

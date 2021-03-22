@@ -6,15 +6,17 @@
 #include "FrameBuffer.h"
 #include "Math.h"
 #include "Mesh.h"
+#include "Model.h"
+#include "Object.h"
 
 class Rasterizer {
 private:
 	int Width;
 	int Height;
 	FrameBuffer *Buf;
-	Shader *shader;
 	glm::mat4 ViewPortMatrix = glm::mat4(1.0f);
 public:
+	Shader* shader;
 
 	void Setsize(const int& w, const int& h)
 	{
@@ -103,7 +105,7 @@ public:
 	Rasterizer(const int &w, const int &h)
 		:Width(w), Height(h)
 	{
-		shader = new Shader(w, h);
+		shader = new Shader;
 		Buf = new FrameBuffer(w, h);
 	}
 	~Rasterizer()
@@ -120,6 +122,12 @@ public:
 	void SetModelMatrix(const glm::mat4& Mat)
 	{
 		shader->SetModelMatrix(Mat);
+		SetNormalMatrix(GetNormalMatrix(Mat));
+	}
+
+	void SetNormalMatrix(const glm::mat3& Mat)
+	{
+		shader->SetNormalMatrix(Mat);
 	}
 
 	void SetViewMatrix(const glm::mat4& Mat)
@@ -137,6 +145,11 @@ public:
 		ViewPortMatrix = Mat;
 	}
 
+	void SeteyePoint(const glm::vec3& eye)
+	{
+		shader->SeteyePoint(eye);
+	}
+
 	void ClearBuffer(glm::vec4 color)
 	{
 		Buf->ClearBuffer(color);
@@ -144,6 +157,20 @@ public:
 
 	void Show()
 	{
+		std::vector<unsigned char> tColorData;
+		tColorData.resize(Width * Height * 4);
+		for (int i = 0; i < Width; ++i)
+		{
+			for (int j = 0; j < Height; ++j)
+			{
+				float DepthColor = Buf->DepthData[(i + j * Width)] * 255;
+				tColorData[(i + j * Width) * 4] = DepthColor;
+				tColorData[(i + j * Width) * 4 + 1] = DepthColor;
+				tColorData[(i + j * Width) * 4 + 2] = DepthColor;
+				tColorData[(i + j * Width) * 4 + 3] = 1.0;
+			}
+		}
+		//glDrawPixels(Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, tColorData.data());
 		glDrawPixels(Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, Buf->ColorData.data());
 	}
 
@@ -190,7 +217,22 @@ public:
 		return glm::dot(eyev, v2) < 0;
 	}
 
-	void DrawMesh(const Mesh& mesh, const DrawType type)
+	void DrawModel(Model& model, const DrawType& type) {
+		for (int i = 0; i < model.objects.size(); i++) {
+			DrawObject(model.objects[i], type);
+		}
+	}
+
+	void DrawObject(Object& obj, const DrawType& type) {
+		if (obj.mesh.EBO.empty()) {
+			return;
+		}
+		currentMat = &obj.material;
+		shader->SetTexture(*obj.material.MainTex);
+		DrawMesh(obj.mesh, type);
+	}
+
+	void DrawMesh(const Mesh& mesh, const DrawType& type)
 	{
 		int Size = mesh.EBO.size();
 		for (int i = 0; i < Size; i += 3)
