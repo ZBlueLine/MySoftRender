@@ -13,18 +13,21 @@ public:
 	glm::vec4 Specular;
 	int Gloss; 
 	Texture* MainTex;
+	Shader* shader;
 
 	Material() :
 		Color(glm::vec4(1.0, 1.0, 1.0, 1.0)),
 		Specular(glm::vec4(1.0, 1.0, 1.0, 1.0)),
 		Gloss(32),
-		MainTex(nullptr)
+		MainTex(nullptr),
+		shader (nullptr)
 	{}
 	Material(const glm::vec4& color, const glm::vec4& specular, const int& gloss) :
 		Color(color),
 		Specular(specular),
 		Gloss(gloss),
-		MainTex(nullptr)
+		MainTex(nullptr),
+		shader(nullptr)
 	{}
 
 	~Material() = default;
@@ -32,6 +35,10 @@ public:
 		if (!MainTex)
 			MainTex = new Texture;
 		*MainTex = t;
+	}
+	void SetShader(Shader* s)
+	{
+		shader = s;
 	}
 };
 

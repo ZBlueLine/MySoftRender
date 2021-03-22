@@ -21,6 +21,9 @@
     <ClCompile Include="glad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vertexAnimationShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameBuffer.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexAnimationShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

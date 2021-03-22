@@ -6,7 +6,7 @@
 #include "Camera.h"
 
 class Shader {
-private:
+protected:
 	Texture* Tex;
 	glm::vec3 Eyepoint;
 	glm::mat4 ModelMatrix = glm::mat4(1.0f);
@@ -57,9 +57,10 @@ public:
 		Eyepoint = eye;
 	}
 
-	VtoR VertexShader(Vertex& v)
+	virtual VtoR VertexShader(Vertex& v)
 	{
 		VtoR resualt;
+		//v.position += v.normal * glm::vec4(0.5, 0.5, 0.5, 0);
 		resualt.worldp = ModelMatrix * v.position;
 		resualt.windowp = ViewMatrix * resualt.worldp;
 		resualt.windowp = PerspectiveMatrix * resualt.windowp;
@@ -71,12 +72,12 @@ public:
 		return resualt;
 	}
 
-	glm::vec4 FragmentShadertt(const VtoR& v)
-	{
-		if (Tex->data)
-			glm::vec4 ReturnColor = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
-		return v.color;
-	}
+	//glm::vec4 FragmentShadertt(const VtoR& v)
+	//{
+	//	if (Tex->data)
+	//		glm::vec4 ReturnColor = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
+	//	return v.color;
+	//}
 
 	struct light
 	{
@@ -84,7 +85,7 @@ public:
 		glm::vec3 intensity;
 	};
 
-	glm::vec4 FragmentShader(const VtoR& v)
+	virtual glm::vec4 FragmentShader(const VtoR& v)
 	{
 		glm::vec4 return_color = { 0, 0, 0, 0 };
 		if (Tex->data)

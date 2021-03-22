@@ -6,6 +6,7 @@
 #include "Material.h"
 #include "Model.h"
 #include "global.h"
+#include "vertexAnimationShader.h"
 #include <thread>
 #include <Windows.h>
 
@@ -63,6 +64,8 @@ int main()
     Texture spotTexture;
     spotTexture.LoadTexture("neptune/spot/spot_texture.png");
     spotMat.SetTexture(spotTexture);
+    //vertexAnimationShader* pureColorShader = new vertexAnimationShader();
+    //spotMat.SetShader(pureColorShader);
 
     Model spot("neptune/spot/spot_triangulated_good.obj");
     spot.SetMaterial(0, spotMat);

@@ -227,9 +227,22 @@ public:
 		if (obj.mesh.EBO.empty()) {
 			return;
 		}
+		//Shader *tmp = nullptr;
+		//bool flag = false;
+		//if(obj.material.shader != nullptr)
+		//{ 
+		//	flag = true;
+		//	tmp = shader;
+		//	shader = obj.material.shader;
+		//}
 		currentMat = &obj.material;
 		shader->SetTexture(*obj.material.MainTex);
 		DrawMesh(obj.mesh, type);
+		//if (flag)
+		//{
+		//	shader = tmp;
+		//	tmp = nullptr;
+		//}
 	}
 
 	void DrawMesh(const Mesh& mesh, const DrawType& type)
