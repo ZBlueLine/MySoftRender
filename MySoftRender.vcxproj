@@ -149,7 +149,6 @@
   <ItemGroup>
     <ClCompile Include="glad.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="vertexAnimationShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

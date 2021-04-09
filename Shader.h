@@ -23,10 +23,6 @@ public:
 		if(Tex)
 			delete Tex;
 	}
-	void LoadTexture(const std::string& Path)
-	{
-		Tex->LoadTexture(Path);
-	}
 	void SetTexture(const Texture& ctex)
 	{
 		if (!Tex)

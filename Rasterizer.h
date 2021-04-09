@@ -14,9 +14,16 @@ private:
 	int Width;
 	int Height;
 	FrameBuffer *Buf;
+
 	glm::mat4 ViewPortMatrix = glm::mat4(1.0f);
+	glm::vec3 Eyepoint;
+	glm::mat4 ModelMatrix = glm::mat4(1.0f);
+	glm::mat4 ViewMatrix = glm::mat4(1.0f);
+	glm::mat4 PerspectiveMatrix = glm::mat4(1.0f);
+	glm::mat3 NormalMatrix = glm::mat3(1.0f);
+
+	Shader *shader;
 public:
-	Shader* shader;
 
 	void Setsize(const int& w, const int& h)
 	{
@@ -105,51 +112,49 @@ public:
 	Rasterizer(const int &w, const int &h)
 		:Width(w), Height(h)
 	{
-		shader = new Shader;
 		Buf = new FrameBuffer(w, h);
 	}
 	~Rasterizer()
 	{
 		delete Buf;
-		delete shader;
+		shader = nullptr;
 	}
 
-	void LoadTexture(const std::string& Path)
+	void SetMatrixToShader()
 	{
-		shader->LoadTexture(Path);
-	}
+		shader->SetModelMatrix(ModelMatrix);
+		shader->SetNormalMatrix(NormalMatrix);
+		shader->SetViewMatrix(ViewMatrix);
+		shader->SetPerspectiveMatrix(PerspectiveMatrix);
 
-	void SetModelMatrix(const glm::mat4& Mat)
-	{
-		shader->SetModelMatrix(Mat);
-		SetNormalMatrix(GetNormalMatrix(Mat));
 	}
-
-	void SetNormalMatrix(const glm::mat3& Mat)
-	{
-		shader->SetNormalMatrix(Mat);
-	}
-
-	void SetViewMatrix(const glm::mat4& Mat)
-	{
-		shader->SetViewMatrix(Mat);
-	}
-
-	void SetPerspectiveMatrix(const glm::mat4& Mat)
-	{
-		shader->SetPerspectiveMatrix(Mat);
-	}
-
 	void SetViewPortMatrix(const glm::mat4& Mat)
 	{
 		ViewPortMatrix = Mat;
 	}
+	void SetModelMatrix(const glm::mat4& Mat)
+	{
+		ModelMatrix = Mat;
+	}
+
+	void SetViewMatrix(const glm::mat4& Mat)
+	{
+		ViewMatrix = Mat;
+	}
+
+	void SetNormalMatrix(const glm::mat3& Mat) {
+		NormalMatrix = Mat;
+	}
+
+	void SetPerspectiveMatrix(const glm::mat4& Mat)
+	{
+		PerspectiveMatrix = Mat;
+	}
 
 	void SeteyePoint(const glm::vec3& eye)
 	{
-		shader->SeteyePoint(eye);
+		Eyepoint = eye;
 	}
-
 	void ClearBuffer(glm::vec4 color)
 	{
 		Buf->ClearBuffer(color);
@@ -227,6 +232,8 @@ public:
 		if (obj.mesh.EBO.empty()) {
 			return;
 		}
+		shader = obj.material.shader;
+		SetMatrixToShader();
 		//Shader *tmp = nullptr;
 		//bool flag = false;
 		//if(obj.material.shader != nullptr)

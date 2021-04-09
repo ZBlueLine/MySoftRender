@@ -2,7 +2,7 @@
 D:\Renderer\MySoftRender\Math.h(133,18): warning C4305: 'initializing': truncation from 'double' to 'float'
 D:\Renderer\MySoftRender\Texture.h(50,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 D:\Renderer\MySoftRender\Texture.h(51,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Shader.h(119,12): warning C4244: 'initializing': conversion from 'glm::vec<3,float,glm::packed_highp>::length_type' to 'float', possible loss of data
+D:\Renderer\MySoftRender\Shader.h(115,12): warning C4244: 'initializing': conversion from 'glm::vec<3,float,glm::packed_highp>::length_type' to 'float', possible loss of data
 D:\Renderer\MySoftRender\FrameBuffer.h(37,19): warning C4244: '=': conversion from 'T' to 'unsigned char', possible loss of data
           with
           [
@@ -63,138 +63,138 @@ D:\Renderer\MySoftRender\Mesh.h(70,1): warning C4267: 'initializing': conversion
 D:\Renderer\MySoftRender\Mesh.h(71,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 D:\Renderer\MySoftRender\Mesh.h(72,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 D:\Renderer\MySoftRender\Model.h(102,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(26,41): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(26,38): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(81,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(167,39): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(33,41): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(33,38): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(88,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(172,39): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
           with
           [
               _Ty=unsigned char
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(168,43): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(173,43): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
           with
           [
               _Ty=unsigned char
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(169,43): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(174,43): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
           with
           [
               _Ty=unsigned char
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(170,43): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(175,43): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
           with
           [
               _Ty=unsigned char
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(186,37): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(191,37): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(250,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(269,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(326,14): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(257,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(276,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(333,14): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(333,40): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(340,40): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(334,43): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(341,43): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(336,41): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(343,41): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(346,14): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(353,14): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(353,40): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(360,40): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(354,43): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(361,43): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(356,41): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(363,41): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(377,64): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(384,64): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(377,49): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(384,49): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(379,47): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(386,47): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(379,32): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(386,32): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(380,45): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(387,45): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(380,30): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(387,30): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(405,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(406,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(411,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(412,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Renderer\MySoftRender\Rasterizer.h(417,33): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(412,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(413,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(418,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(419,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(424,33): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(417,24): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(424,24): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(422,33): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(429,33): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\Renderer\MySoftRender\Rasterizer.h(422,24): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+D:\Renderer\MySoftRender\Rasterizer.h(429,24): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
 D:\PATH\Include\glad\glad.h(32): message : see previous definition of 'APIENTRY'
-D:\Renderer\MySoftRender\main.cpp(116,106): warning C4305: 'argument': truncation from 'double' to 'const float'
-D:\Renderer\MySoftRender\main.cpp(222,98): warning C4305: 'argument': truncation from 'double' to 'const float'
+D:\Renderer\MySoftRender\main.cpp(117,107): warning C4305: 'argument': truncation from 'double' to 'const float'
+D:\Renderer\MySoftRender\main.cpp(223,98): warning C4305: 'argument': truncation from 'double' to 'const float'
 LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  3 of 1112 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    17 functions had inline decision re-evaluated but remain unchanged
+  10 of 1113 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    9 functions were new in current compilation
+    16 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MySoftRender.vcxproj -> D:\Renderer\MySoftRender\x64\Release\MySoftRender.exe

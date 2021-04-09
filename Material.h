@@ -20,14 +20,14 @@ public:
 		Specular(glm::vec4(1.0, 1.0, 1.0, 1.0)),
 		Gloss(32),
 		MainTex(nullptr),
-		shader (nullptr)
+		shader (new Shader)
 	{}
 	Material(const glm::vec4& color, const glm::vec4& specular, const int& gloss) :
 		Color(color),
 		Specular(specular),
 		Gloss(gloss),
 		MainTex(nullptr),
-		shader(nullptr)
+		shader(new Shader)
 	{}
 
 	~Material() = default;
@@ -38,6 +38,7 @@ public:
 	}
 	void SetShader(Shader* s)
 	{
+		delete shader;
 		shader = s;
 	}
 };

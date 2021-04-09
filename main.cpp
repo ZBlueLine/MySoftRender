@@ -61,6 +61,7 @@ int main()
     model.SetMaterial(3, eyeMat);
 
     Material spotMat;
+    spotMat.SetShader(new vertexAnimationShader);
     Texture spotTexture;
     spotTexture.LoadTexture("neptune/spot/spot_texture.png");
     spotMat.SetTexture(spotTexture);
@@ -113,7 +114,7 @@ int main()
     //Cube.CreatCube(0, 0.5, 0, 1);
     //Triangle MyFirstTriangle(V1, V2, V3);
 
-    r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)SCR_WIDTH / SCR_HEIGHT, 0.3, 100.f));
+    r->SetPerspectiveMatrix(GetPerspectiveMatrix(cam->GetFov(), (float)SCR_WIDTH / SCR_HEIGHT, 0.01, 100.f));
     r->SetViewPortMatrix(GetViewPortMatrix(SCR_WIDTH, SCR_HEIGHT));
     float angle = 0; 
     auto  Type = Rasterizer::DrawType::DrawTriangle;
