@@ -5,3 +5,7 @@ Release/
 .vs/MySoftRender/
 neptune/
 x64/
+*.suo
+*.sdf
+*.opensdf  
+*.vcxproj.user
