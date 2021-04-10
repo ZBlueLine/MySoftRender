@@ -243,7 +243,8 @@ public:
 		//	shader = obj.material.shader;
 		//}
 		currentMat = &obj.material;
-		shader->SetTexture(*obj.material.MainTex);
+		if(obj.material.MainTex)
+			shader->SetTexture(*obj.material.MainTex);
 		DrawMesh(obj.mesh, type);
 		//if (flag)
 		//{

@@ -36,39 +36,86 @@ int main()
 {
     Material bodyMat;
     Texture bodyTexture;
-    bodyTexture.LoadTexture("neptune/Texf_body02.jpg");
+    bodyTexture.LoadTexture("Models/neptune/Texf_body02.jpg");
     bodyMat.SetTexture(bodyTexture);
 
     Material faceMat;
     Texture faceTexture;
-    faceTexture.LoadTexture("neptune/Tex002f_body01.jpg");
+    faceTexture.LoadTexture("Models/neptune/Tex002f_body01.jpg");
     faceMat.SetTexture(faceTexture);
 
     Material mouseMat;
     Texture mouseTexture;
-    mouseTexture.LoadTexture("neptune/Texf_mouse.jpg");
+    mouseTexture.LoadTexture("Models/neptune/Texf_mouse.jpg");
     mouseMat.SetTexture(mouseTexture);
 
     Material eyeMat;
     Texture eyeTexture;
-    eyeTexture.LoadTexture("neptune/Tex001f_eye.jpg");
+    eyeTexture.LoadTexture("Models/neptune/Tex001f_eye.jpg");
     eyeMat.SetTexture(eyeTexture);
 
-    Model model("neptune/neptune.obj");
+    Model model("Models/neptune/neptune.obj");
     model.SetMaterial(0, mouseMat);
     model.SetMaterial(1, faceMat);
     model.SetMaterial(2, bodyMat);
     model.SetMaterial(3, eyeMat);
 
+    //-------------Ke Qing--------------------------
+    Material KeHairMat;
+    Texture KeHairTexture;
+    KeHairTexture.LoadTexture("Models/Keqing/tex/Hair.png");
+    KeHairMat.SetTexture(KeHairTexture);
+
+    Material KeClothMat;
+    Texture KeClothTexture;
+    KeClothTexture.LoadTexture("Models/Keqing/tex/Cloth.png");
+    KeClothMat.SetTexture(KeClothTexture);
+
+    Material KeSkinMat;
+    Texture KeSkinTexture;
+    KeSkinTexture.LoadTexture("Models/Keqing/tex/Skin.png");
+    KeSkinMat.SetTexture(KeSkinTexture);
+
+    Material KeExpressionMat;
+    Texture KeExpressionTexture;
+    KeExpressionTexture.LoadTexture("Models/Keqing/tex/Expression.png");
+    KeExpressionMat.SetTexture(KeExpressionTexture);
+
+    Material KeFaceMat;
+    Texture KeFaceTexture;
+    KeFaceTexture.LoadTexture("Models/Keqing/tex/Face.png");
+    KeFaceMat.SetTexture(KeFaceTexture);
+
+    Model Keqing("Models/Keqing/Keqing.obj");
+    Keqing.SetMaterial(0, KeFaceMat);
+    Keqing.SetMaterial(1, KeFaceMat);
+    Keqing.SetMaterial(2, KeHairMat);
+    Keqing.SetMaterial(3, KeFaceMat);
+    Keqing.SetMaterial(4, KeFaceMat);
+    Keqing.SetMaterial(5, KeFaceMat);
+    Keqing.SetMaterial(6, KeFaceMat);
+    Keqing.SetMaterial(7, KeFaceMat);
+    Keqing.SetMaterial(8, KeHairMat);
+    Keqing.SetMaterial(9, KeHairMat);
+    Keqing.SetMaterial(10, KeClothMat);
+    Keqing.SetMaterial(11, KeClothMat);
+    Keqing.SetMaterial(12, KeClothMat);
+    Keqing.SetMaterial(13, KeClothMat);
+    Keqing.SetMaterial(14, KeClothMat);
+    Keqing.SetMaterial(15, KeClothMat);
+    Keqing.SetMaterial(16, KeSkinMat);
+    Keqing.SetMaterial(17, KeClothMat);
+    Keqing.SetMaterial(18, KeClothMat);
+
     Material spotMat;
     spotMat.SetShader(new vertexAnimationShader);
     Texture spotTexture;
-    spotTexture.LoadTexture("neptune/spot/spot_texture.png");
+    spotTexture.LoadTexture("Models/neptune/spot/spot_texture.png");
     spotMat.SetTexture(spotTexture);
     //vertexAnimationShader* pureColorShader = new vertexAnimationShader();
     //spotMat.SetShader(pureColorShader);
 
-    Model spot("neptune/spot/spot_triangulated_good.obj");
+    Model spot("Models/neptune/spot/spot_triangulated_good.obj");
     spot.SetMaterial(0, spotMat);
 
     Mesh box;
@@ -146,16 +193,15 @@ int main()
         r->SetModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, -2, 0)));
         r->DrawObject(Cube, Type);
         
-        glm::mat4 ModelMat = glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01));
+        glm::mat4 ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(2, -2, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01));
         r->SetModelMatrix(ModelMat);
-        
         r->DrawModel(model, Type);
 
+        ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(0, -1, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.1, 0.1, 0.1));
+        r->SetModelMatrix(ModelMat);
+        r->DrawModel(Keqing, Type);
 
         ModelMat = RodriguesRotationFormula(glm::vec3(2, 0, 0), glm::vec3(0, 1, 0), 180) * glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0));
-
-
-
         r->SetModelMatrix(ModelMat);
         r->DrawModel(spot, Type);
 
@@ -202,14 +248,18 @@ void processInput(GLFWwindow* window)
         cam->yaw(1.f);
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         cam->yaw(-1.f);
+
+    float MoveSpeed = 0.04f;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        MoveSpeed *= 2;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cam->MoveZ(0.04f);
+        cam->MoveZ(MoveSpeed);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cam->MoveZ(-0.04f);
+        cam->MoveZ(-MoveSpeed);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cam->MoveX(-0.04f);
+        cam->MoveX(-MoveSpeed);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cam->MoveX(0.04f);
+        cam->MoveX(MoveSpeed);
 #endif
     
 }

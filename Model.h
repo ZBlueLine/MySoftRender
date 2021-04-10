@@ -50,14 +50,21 @@ public:
 		bool flag = false;
 		while (!in.eof()) {
 			std::getline(in, line);
+			if (!line.compare(0, 2, "g "))
+			{
+				currentObjectNums++;
+				//std::cout << "obj!!!"<< currentObjectNums << std::endl;
+				Object o;
+				objects.push_back(o);
+			}
 			if (!line.compare(0, 2, "v "))
 			{
-				if (!flag) {
+				/*if (!flag) {
 					currentObjectNums++;
 					Object o;
 					objects.push_back(o);
 					flag = true;
-				}
+				}*/
 				line = line.substr(2);
 				std::istringstream iss(line);
 				glm::vec3 v;
