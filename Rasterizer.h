@@ -75,6 +75,7 @@ public:
 		return VtoR::Lerp(p1, p2, Weight);
 	}
 
+	//Èý½ÇÐÎ²Ã¼ô
 	std::vector<VtoR> ViewClip(const VtoR& v1, const VtoR& v2, const VtoR& v3)
 	{
 		std::vector<VtoR> output{ v1, v2, v3};

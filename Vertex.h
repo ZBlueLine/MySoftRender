@@ -44,6 +44,7 @@ public:
 
 	static VtoR Lerp(const VtoR& v1, const VtoR& v2, const float& weigh)
 	{
+		//之后换成重心插值
 		VtoR resualt;
 		resualt.worldp = lerp(v1.worldp, v2.worldp, weigh);
 		resualt.windowp = lerp(v1.windowp, v2.windowp, weigh);

@@ -68,5 +68,8 @@
     <ClInclude Include="vertexAnimationShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TsTShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,2 +1,0 @@
-D:\Renderer\MySoftRender\x64\Debug\MySoftRender.exe
-D:\Renderer\MySoftRender\x64\Debug\MySoftRender.pdb

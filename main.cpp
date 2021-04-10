@@ -7,6 +7,7 @@
 #include "Model.h"
 #include "global.h"
 #include "vertexAnimationShader.h"
+#include "TstShader.h"
 #include <thread>
 #include <Windows.h>
 
@@ -61,27 +62,34 @@ int main()
     model.SetMaterial(3, eyeMat);
 
     //-------------Ke Qing--------------------------
+    Shader *KeqingShader = new TsTShader;
+
     Material KeHairMat;
+    KeHairMat.SetShader(KeqingShader);
     Texture KeHairTexture;
     KeHairTexture.LoadTexture("Models/Keqing/tex/Hair.png");
     KeHairMat.SetTexture(KeHairTexture);
 
     Material KeClothMat;
+    KeClothMat.SetShader(KeqingShader);
     Texture KeClothTexture;
     KeClothTexture.LoadTexture("Models/Keqing/tex/Cloth.png");
     KeClothMat.SetTexture(KeClothTexture);
 
     Material KeSkinMat;
+    KeSkinMat.SetShader(KeqingShader);
     Texture KeSkinTexture;
     KeSkinTexture.LoadTexture("Models/Keqing/tex/Skin.png");
     KeSkinMat.SetTexture(KeSkinTexture);
 
     Material KeExpressionMat;
+    KeExpressionMat.SetShader(KeqingShader);
     Texture KeExpressionTexture;
     KeExpressionTexture.LoadTexture("Models/Keqing/tex/Expression.png");
     KeExpressionMat.SetTexture(KeExpressionTexture);
 
     Material KeFaceMat;
+    KeFaceMat.SetShader(KeqingShader);
     Texture KeFaceTexture;
     KeFaceTexture.LoadTexture("Models/Keqing/tex/Face.png");
     KeFaceMat.SetTexture(KeFaceTexture);
@@ -238,20 +246,24 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cam->MoveX(1.1f);
 #else
+    float MoveSpeed = 0.04f;
+    float RotationgSpeed = 1;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    {
+        MoveSpeed *= 2;
+        RotationgSpeed = 4;
+    }
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        cam->pitch(1.f);
+        cam->pitch(RotationgSpeed);
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        cam->pitch(-1.f);
+        cam->pitch(-RotationgSpeed);
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        cam->yaw(1.f);
+        cam->yaw(RotationgSpeed);
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        cam->yaw(-1.f);
+        cam->yaw(-RotationgSpeed);
 
-    float MoveSpeed = 0.04f;
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        MoveSpeed *= 2;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cam->MoveZ(MoveSpeed);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)

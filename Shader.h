@@ -94,8 +94,8 @@ public:
 		glm::vec3 kd = texture_color;
 		glm::vec3 ks = glm::vec3(0.7937, 0.7937, 0.7937);
 
-		auto l1 = light{ {20, 20, 20}, {6, 6, 6} };
-		auto l2 = light{ {-20, 20, 0}, {6, 6, 6} };
+		auto l1 = light{ {20, -10, 20}, {6, 6, 6} };
+		auto l2 = light{ {4, 20, 0}, {6, 6, 6} };
 
 		std::vector<light> lights = { l1, l2 };
 		glm::vec3 amb_light_intensity{ 10, 10, 10 };

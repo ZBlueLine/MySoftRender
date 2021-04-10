@@ -164,6 +164,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="TsTShader.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="vertexAnimationShader.h" />
   </ItemGroup>
