@@ -11,3 +11,5 @@ x64/
 *.vcxproj.user
 MySoftRender.vcxproj*
 MySoftRender.vcxproj
+.vs/MySoftRender/
+x64/
