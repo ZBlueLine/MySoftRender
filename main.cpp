@@ -35,31 +35,31 @@ void ShowFps(GLFWwindow* window)
 
 int main()
 {
-    Material bodyMat;
-    Texture bodyTexture;
-    bodyTexture.LoadTexture("Models/neptune/Texf_body02.jpg");
-    bodyMat.SetTexture(bodyTexture);
+    //Material bodyMat;
+    //Texture bodyTexture;
+    //bodyTexture.LoadTexture("Models/neptune/Texf_body02.jpg");
+    //bodyMat.SetTexture(bodyTexture);
 
-    Material faceMat;
-    Texture faceTexture;
-    faceTexture.LoadTexture("Models/neptune/Tex002f_body01.jpg");
-    faceMat.SetTexture(faceTexture);
+    //Material faceMat;
+    //Texture faceTexture;
+    //faceTexture.LoadTexture("Models/neptune/Tex002f_body01.jpg");
+    //faceMat.SetTexture(faceTexture);
 
-    Material mouseMat;
-    Texture mouseTexture;
-    mouseTexture.LoadTexture("Models/neptune/Texf_mouse.jpg");
-    mouseMat.SetTexture(mouseTexture);
+    //Material mouseMat;
+    //Texture mouseTexture;
+    //mouseTexture.LoadTexture("Models/neptune/Texf_mouse.jpg");
+    //mouseMat.SetTexture(mouseTexture);
 
-    Material eyeMat;
-    Texture eyeTexture;
-    eyeTexture.LoadTexture("Models/neptune/Tex001f_eye.jpg");
-    eyeMat.SetTexture(eyeTexture);
+    //Material eyeMat;
+    //Texture eyeTexture;
+    //eyeTexture.LoadTexture("Models/neptune/Tex001f_eye.jpg");
+    //eyeMat.SetTexture(eyeTexture);
 
-    Model model("Models/neptune/neptune.obj");
-    model.SetMaterial(0, mouseMat);
-    model.SetMaterial(1, faceMat);
-    model.SetMaterial(2, bodyMat);
-    model.SetMaterial(3, eyeMat);
+    //Model model("Models/neptune/neptune.obj");
+    //model.SetMaterial(0, mouseMat);
+    //model.SetMaterial(1, faceMat);
+    //model.SetMaterial(2, bodyMat);
+    //model.SetMaterial(3, eyeMat);
 
     //-------------Ke Qing--------------------------
     Shader *KeqingShader = new TsTShader;
@@ -115,16 +115,16 @@ int main()
     Keqing.SetMaterial(17, KeClothMat);
     Keqing.SetMaterial(18, KeClothMat);
 
-    Material spotMat;
-    spotMat.SetShader(new vertexAnimationShader);
-    Texture spotTexture;
-    spotTexture.LoadTexture("Models/neptune/spot/spot_texture.png");
-    spotMat.SetTexture(spotTexture);
+    //Material spotMat;
+    //spotMat.SetShader(new vertexAnimationShader);
+    //Texture spotTexture;
+    //spotTexture.LoadTexture("Models/neptune/spot/spot_texture.png");
+    //spotMat.SetTexture(spotTexture);
     //vertexAnimationShader* pureColorShader = new vertexAnimationShader();
     //spotMat.SetShader(pureColorShader);
 
-    Model spot("Models/neptune/spot/spot_triangulated_good.obj");
-    spot.SetMaterial(0, spotMat);
+    //Model spot("Models/neptune/spot/spot_triangulated_good.obj");
+    //spot.SetMaterial(0, spotMat);
 
     Mesh box;
     box.CreatCube(0.0, 0.0, 0.0, 0.5);
@@ -202,16 +202,16 @@ int main()
         r->DrawObject(Cube, Type);
         
         glm::mat4 ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(2, -2, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01));
-        r->SetModelMatrix(ModelMat);
-        r->DrawModel(model, Type);
+        //r->SetModelMatrix(ModelMat);
+        //r->DrawModel(model, Type);
 
         ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(0, -1, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.1, 0.1, 0.1));
         r->SetModelMatrix(ModelMat);
         r->DrawModel(Keqing, Type);
 
-        ModelMat = RodriguesRotationFormula(glm::vec3(2, 0, 0), glm::vec3(0, 1, 0), 180) * glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0));
+        /*ModelMat = RodriguesRotationFormula(glm::vec3(2, 0, 0), glm::vec3(0, 1, 0), 180) * glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0));
         r->SetModelMatrix(ModelMat);
-        r->DrawModel(spot, Type);
+        r->DrawModel(spot, Type);*/
 
         r->Show();
         glfwSwapBuffers(window);
