@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .vs/#
 *.vs/
 Debug/
@@ -13,3 +14,12 @@ MySoftRender.vcxproj*
 MySoftRender.vcxproj
 .vs/MySoftRender/
 x64/
+=======
+.vs/#
+*.vs/
+Debug/
+Release/
+.vs/MySoftRender/
+neptune/
+x64/
+>>>>>>> 33ec6a3c8434a600aca0b07610ab3d26b917ac35
