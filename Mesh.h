@@ -27,79 +27,79 @@ public:
 	}
 	void CreatCube(float ox, float oy, float oz, float radius)
 	{
-		////顶部
-		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz - radius),
-		//	glm::vec3(ox - radius, oy + radius, oz + radius),
-		//	glm::vec3(ox + radius, oy + radius, oz - radius),
-		//	glm::vec3(ox + radius, oy + radius, oz + radius),
-		//	glm::vec4(0, 1, 0, 0)));
-		////底部
-		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy - radius, oz + radius),
-		//	glm::vec3(ox - radius, oy - radius, oz - radius),
-		//	glm::vec3(ox + radius, oy - radius, oz + radius),
-		//	glm::vec3(ox + radius, oy - radius, oz - radius),
-		//	glm::vec4(0, -1, 0, 0)));
-		////右侧
-		//AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz + radius),
-		//	glm::vec3(ox + radius, oy - radius, oz + radius),
-		//	glm::vec3(ox + radius, oy + radius, oz - radius),
-		//	glm::vec3(ox + radius, oy - radius, oz - radius),
-		//	glm::vec4(1, 0, 0, 0)));
-		////左侧
-		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz - radius),
-		//	glm::vec3(ox - radius, oy - radius, oz - radius),
-		//	glm::vec3(ox - radius, oy + radius, oz + radius),
-		//	glm::vec3(ox - radius, oy - radius, oz + radius),
-		//	glm::vec4(-1, 0, 0, 0)));
-		////后面
-		//AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz - radius),
-		//	glm::vec3(ox + radius, oy - radius, oz - radius),
-		//	glm::vec3(ox - radius, oy + radius, oz - radius),
-		//	glm::vec3(ox - radius, oy - radius, oz - radius),
-		//	glm::vec4(0, 0, -1, 0)));
-		////前面
-		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz + radius),
-		//	glm::vec3(ox - radius, oy - radius, oz + radius),
-		//	glm::vec3(ox + radius, oy + radius, oz + radius),
-		//	glm::vec3(ox + radius, oy - radius, oz + radius),
-		//	glm::vec4(0, 0, 1, 0)));
-
 		//顶部
-		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + (radius - 0.01), oz - radius),
-			glm::vec3(ox - radius, oy + (radius - 0.01), oz + radius),
-			glm::vec3(ox + radius, oy + (radius - 0.01), oz - radius),
-			glm::vec3(ox + radius, oy + (radius - 0.01), oz + radius),
+		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz - radius),
+			glm::vec3(ox - radius, oy + radius, oz + radius),
+			glm::vec3(ox + radius, oy + radius, oz - radius),
+			glm::vec3(ox + radius, oy + radius, oz + radius),
 			glm::vec4(0, 1, 0, 0)));
 		//底部
-		AddMesh(CreatePlan(glm::vec3(ox - radius, oy - (radius - 0.01), oz + radius),
-			glm::vec3(ox - radius, oy - (radius - 0.01), oz - radius),
-			glm::vec3(ox + radius, oy - (radius - 0.01), oz + radius),
-			glm::vec3(ox + radius, oy - (radius - 0.01), oz - radius),
+		AddMesh(CreatePlan(glm::vec3(ox - radius, oy - radius, oz + radius),
+			glm::vec3(ox - radius, oy - radius, oz - radius),
+			glm::vec3(ox + radius, oy - radius, oz + radius),
+			glm::vec3(ox + radius, oy - radius, oz - radius),
 			glm::vec4(0, -1, 0, 0)));
 		//右侧
-		AddMesh(CreatePlan(glm::vec3(ox + (radius - 0.01), oy + radius, oz + radius),
-			glm::vec3(ox + (radius - 0.01), oy - radius, oz + radius),
-			glm::vec3(ox + (radius - 0.01), oy + radius, oz - radius),
-			glm::vec3(ox + (radius - 0.01), oy - radius, oz - radius),
+		AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz + radius),
+			glm::vec3(ox + radius, oy - radius, oz + radius),
+			glm::vec3(ox + radius, oy + radius, oz - radius),
+			glm::vec3(ox + radius, oy - radius, oz - radius),
 			glm::vec4(1, 0, 0, 0)));
 		//左侧
-		AddMesh(CreatePlan(glm::vec3(ox - (radius - 0.01), oy + radius, oz - radius),
-			glm::vec3(ox - (radius - 0.01), oy - radius, oz - radius),
-			glm::vec3(ox - (radius - 0.01), oy + radius, oz + radius),
-			glm::vec3(ox - (radius - 0.01), oy - radius, oz + radius),
+		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz - radius),
+			glm::vec3(ox - radius, oy - radius, oz - radius),
+			glm::vec3(ox - radius, oy + radius, oz + radius),
+			glm::vec3(ox - radius, oy - radius, oz + radius),
 			glm::vec4(-1, 0, 0, 0)));
 		//后面
-		AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz - (radius - 0.01)),
-			glm::vec3(ox + radius, oy - radius, oz - (radius - 0.01)),
-			glm::vec3(ox - radius, oy + radius, oz - (radius - 0.01)),
-			glm::vec3(ox - radius, oy - radius, oz - (radius - 0.01)),
+		AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz - radius),
+			glm::vec3(ox + radius, oy - radius, oz - radius),
+			glm::vec3(ox - radius, oy + radius, oz - radius),
+			glm::vec3(ox - radius, oy - radius, oz - radius),
 			glm::vec4(0, 0, -1, 0)));
 		//前面
-		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz + (radius - 0.01)),
-			glm::vec3(ox - radius, oy - radius, oz + (radius - 0.01)),
-			glm::vec3(ox + radius, oy + radius, oz + (radius - 0.01)),
-			glm::vec3(ox + radius, oy - radius, oz + (radius - 0.01)),
+		AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz + radius),
+			glm::vec3(ox - radius, oy - radius, oz + radius),
+			glm::vec3(ox + radius, oy + radius, oz + radius),
+			glm::vec3(ox + radius, oy - radius, oz + radius),
 			glm::vec4(0, 0, 1, 0)));
+
+		////顶部
+		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy + (radius - 0.01), oz - radius),
+		//	glm::vec3(ox - radius, oy + (radius - 0.01), oz + radius),
+		//	glm::vec3(ox + radius, oy + (radius - 0.01), oz - radius),
+		//	glm::vec3(ox + radius, oy + (radius - 0.01), oz + radius),
+		//	glm::vec4(0, 1, 0, 0)));
+		////底部
+		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy - (radius - 0.01), oz + radius),
+		//	glm::vec3(ox - radius, oy - (radius - 0.01), oz - radius),
+		//	glm::vec3(ox + radius, oy - (radius - 0.01), oz + radius),
+		//	glm::vec3(ox + radius, oy - (radius - 0.01), oz - radius),
+		//	glm::vec4(0, -1, 0, 0)));
+		////右侧
+		//AddMesh(CreatePlan(glm::vec3(ox + (radius - 0.01), oy + radius, oz + radius),
+		//	glm::vec3(ox + (radius - 0.01), oy - radius, oz + radius),
+		//	glm::vec3(ox + (radius - 0.01), oy + radius, oz - radius),
+		//	glm::vec3(ox + (radius - 0.01), oy - radius, oz - radius),
+		//	glm::vec4(1, 0, 0, 0)));
+		////左侧
+		//AddMesh(CreatePlan(glm::vec3(ox - (radius - 0.01), oy + radius, oz - radius),
+		//	glm::vec3(ox - (radius - 0.01), oy - radius, oz - radius),
+		//	glm::vec3(ox - (radius - 0.01), oy + radius, oz + radius),
+		//	glm::vec3(ox - (radius - 0.01), oy - radius, oz + radius),
+		//	glm::vec4(-1, 0, 0, 0)));
+		////后面
+		//AddMesh(CreatePlan(glm::vec3(ox + radius, oy + radius, oz - (radius - 0.01)),
+		//	glm::vec3(ox + radius, oy - radius, oz - (radius - 0.01)),
+		//	glm::vec3(ox - radius, oy + radius, oz - (radius - 0.01)),
+		//	glm::vec3(ox - radius, oy - radius, oz - (radius - 0.01)),
+		//	glm::vec4(0, 0, -1, 0)));
+		////前面
+		//AddMesh(CreatePlan(glm::vec3(ox - radius, oy + radius, oz + (radius - 0.01)),
+		//	glm::vec3(ox - radius, oy - radius, oz + (radius - 0.01)),
+		//	glm::vec3(ox + radius, oy + radius, oz + (radius - 0.01)),
+		//	glm::vec3(ox + radius, oy - radius, oz + (radius - 0.01)),
+		//	glm::vec4(0, 0, 1, 0)));
 	}
 
 	void AddMesh(Mesh Plane)

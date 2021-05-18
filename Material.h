@@ -32,13 +32,10 @@ public:
 
 	~Material() = default;
 	void SetTexture(Texture* t) {
-		if (MainTex)
-			delete MainTex;
 		MainTex = t;
 	}
 	void SetShader(Shader* s)
 	{
-		delete shader;
 		shader = s;
 	}
 };

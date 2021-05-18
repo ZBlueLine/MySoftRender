@@ -58,6 +58,8 @@ public:
 
 	void Setpoint(const int& x, const int& y, const glm::vec4& color) 
 	{
+		if (color.a <= 0)
+			return;
 		if (x < 0 || x >= Width || y < 0 || y >= Height)
 			return;
 		unsigned char* p = ColorData.data();

@@ -23,7 +23,7 @@ public:
 		VtoR resualt;
 		//也可以在模型中移动好位置
 		//处理下接缝的问题
-		//v.position -= v.normal * 0.04f;
+		v.position -= v.normal * 0.01f;
 		resualt.worldp = ModelMatrix * v.position;
 		//不做平移
 		ViewMatrix[3][0] = 0;

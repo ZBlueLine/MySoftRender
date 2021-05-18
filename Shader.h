@@ -97,16 +97,15 @@ public:
 
 		glm::vec3 ka = glm::vec3(0.005, 0.005, 0.005);
 		glm::vec3 kd = texture_color;
-		glm::vec3 ks = glm::vec3(0.7937, 0.7937, 0.7937);
 
-		auto l1 = light{ {20, -10, 20}, {6, 6, 6} };
-		auto l2 = light{ {4, 20, 0}, {6, 6, 6} };
+		auto l1 = light{ {0, 0, -2}, {1, 1, 1} };
+		auto l2 = light{ {1, 1, 4}, {1, 1, 1} };
 
 		std::vector<light> lights = { l1, l2 };
-		glm::vec3 amb_light_intensity{ 10, 10, 10 };
+		glm::vec3 amb_light_intensity{ 1, 1, 1 };
 		glm::vec3 eye_pos = cam->GetPosition();
 
-		float p = 150;
+		float p = 30;
 
 		glm::vec3 color = texture_color;
 		glm::vec3 point = v.worldp;
@@ -123,15 +122,16 @@ public:
 			glm::vec3 v = glm::normalize(eye_pos - point);
 			glm::vec3 h = glm::normalize(v + l);
 			
-			glm::vec3 diffuse = kd * (light.intensity * float(1.f/pow(r, 2.0))) * std::max(0.f, nl);
+			glm::vec3 diffuse = kd * (light.intensity * std::max(0.f, nl));
 			float nh = normal.x * h.x + normal.y * h.y + normal.z * h.z;
 
-			glm::vec3 specular = ks * (light.intensity * float(1.f / pow(r, 2.0)) * pow(std::max(0.f, dot(normal, h)), p));
+			glm::vec3 specular = 0.5f * light.intensity  * pow(std::max(0.f, dot(normal, h)), p);
 			result_color += diffuse;
 			result_color += specular;
 			result_color += ambient;
 		}
-		return glm::vec4{std::min(1.f,result_color.x), std::min(1.f,result_color.y), std::min(1.f,result_color.z), 0};
+
+		return glm::vec4{std::min(1.f,result_color.x), std::min(1.f,result_color.y), std::min(1.f,result_color.z), 1};
 	}
 
 };
