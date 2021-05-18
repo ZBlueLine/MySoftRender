@@ -32,7 +32,7 @@ public:
 		if(data)
 			delete[] data;
 	}
-	virtual bool isempty()
+	virtual bool isempty() const
 	{
 		if (data)
 			return false;
@@ -46,7 +46,7 @@ public:
 		data = stbi_load(Path.c_str(), &Width, &Height, &channels, 0);
 	}
 
-	virtual glm::vec4 GetColor(const glm::vec2 tex)
+	virtual glm::vec4 GetColor(const glm::vec2& tex, float texcoordz = 0) const
 	{
 		//超出部分直接从头开始取
 		float fx = tex.x - (float)floor(tex.x);

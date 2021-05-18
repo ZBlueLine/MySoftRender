@@ -235,23 +235,11 @@ public:
 		}
 		shader = obj.material.shader;
 		SetMatrixToShader();
-		//Shader *tmp = nullptr;
-		//bool flag = false;
-		//if(obj.material.shader != nullptr)
-		//{ 
-		//	flag = true;
-		//	tmp = shader;
-		//	shader = obj.material.shader;
-		//}
+
 		currentMat = &obj.material;
-		if(obj.material.MainTex)
-			shader->SetTexture(*obj.material.MainTex);
+		if(!obj.material.MainTex->isempty())
+			shader->SetTexture(obj.material.MainTex);
 		DrawMesh(obj.mesh, type);
-		//if (flag)
-		//{
-		//	shader = tmp;
-		//	tmp = nullptr;
-		//}
 	}
 
 	void DrawMesh(const Mesh& mesh, const DrawType& type)

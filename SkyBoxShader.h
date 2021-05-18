@@ -21,6 +21,9 @@ public:
 	{
 		BackCull = false;
 		VtoR resualt;
+		//也可以在模型中移动好位置
+		//处理下接缝的问题
+		//v.position -= v.normal * 0.04f;
 		resualt.worldp = ModelMatrix * v.position;
 		//不做平移
 		ViewMatrix[3][0] = 0;
@@ -43,7 +46,8 @@ public:
 	{
 		glm::vec4 Col;
 		if (!Tex->isempty())
-			Col = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
+			Col = Tex->GetColor(glm::vec2(v.worldp.x, v.worldp.y), v.worldp.z);
+		//return glm::vec4(std::fabs(v.worldp.y), 0, 0, 1);
 		return Col;
 	}
 };

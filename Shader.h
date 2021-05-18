@@ -19,18 +19,20 @@ public:
 	Shader()
 	{
 		BackCull = true;
-		Tex = new Texture;
+		Tex = nullptr;
 	}
-	~Shader()
+	~Shader() = default;
+	
+	bool texEmpty()
 	{
-		if(Tex)
-			delete Tex;
+		if(Tex == nullptr)
+			return true;
+		return false;
 	}
-	void SetTexture(const Texture& ctex)
+	void SetTexture(Texture* ctex)
 	{
-		if (!Tex)
-			Tex = new Texture;
-		*Tex = ctex;
+		Tex = ctex;
+		Tex->GetColor(glm::vec3(0.5, 0.5, 0.5));
 	}
 	void SetModelMatrix(const glm::mat4& Mat)
 	{

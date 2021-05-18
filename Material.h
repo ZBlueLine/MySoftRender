@@ -31,10 +31,10 @@ public:
 	{}
 
 	~Material() = default;
-	void SetTexture(const Texture& t) {
-		if (!MainTex)
-			MainTex = new Texture;
-		*MainTex = t;
+	void SetTexture(Texture* t) {
+		if (MainTex)
+			delete MainTex;
+		MainTex = t;
 	}
 	void SetShader(Shader* s)
 	{

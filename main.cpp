@@ -67,32 +67,32 @@ int main()
 
     Material KeHairMat;
     KeHairMat.SetShader(KeqingShader);
-    Texture KeHairTexture;
-    KeHairTexture.LoadTexture("Models/Keqing/tex/Hair.png");
+    Texture *KeHairTexture = new Texture;
+    KeHairTexture->LoadTexture("Models/Keqing/tex/Hair.png");
     KeHairMat.SetTexture(KeHairTexture);
 
     Material KeClothMat;
     KeClothMat.SetShader(KeqingShader);
-    Texture KeClothTexture;
-    KeClothTexture.LoadTexture("Models/Keqing/tex/Cloth.png");
+    Texture *KeClothTexture = new Texture;
+    KeClothTexture->LoadTexture("Models/Keqing/tex/Cloth.png");
     KeClothMat.SetTexture(KeClothTexture);
 
     Material KeSkinMat;
     KeSkinMat.SetShader(KeqingShader);
-    Texture KeSkinTexture;
-    KeSkinTexture.LoadTexture("Models/Keqing/tex/Skin.png");
+    Texture *KeSkinTexture = new Texture;
+    KeSkinTexture->LoadTexture("Models/Keqing/tex/Skin.png");
     KeSkinMat.SetTexture(KeSkinTexture);
 
     Material KeExpressionMat;
     KeExpressionMat.SetShader(KeqingShader);
-    Texture KeExpressionTexture;
-    KeExpressionTexture.LoadTexture("Models/Keqing/tex/Expression.png");
+    Texture *KeExpressionTexture = new Texture;
+    KeExpressionTexture->LoadTexture("Models/Keqing/tex/Expression.png");
     KeExpressionMat.SetTexture(KeExpressionTexture);
 
     Material KeFaceMat;
     KeFaceMat.SetShader(KeqingShader);
-    Texture KeFaceTexture;
-    KeFaceTexture.LoadTexture("Models/Keqing/tex/Face.png");
+    Texture *KeFaceTexture = new Texture;
+    KeFaceTexture->LoadTexture("Models/Keqing/tex/Face.png");
     KeFaceMat.SetTexture(KeFaceTexture);
 
     Model Keqing("Models/Keqing/Keqing.obj");
@@ -130,21 +130,32 @@ int main()
     Mesh box;
     box.CreatCube(0.0, 0.0, 0.0, 0.5);
     Material mat;
-    Texture boxt;
-    boxt.LoadTexture("Texture/mob.jpg");
+    Texture *boxt = new Texture;
+    boxt->LoadTexture("Texture/mob.jpg");
     mat.SetTexture(boxt);
     Object Cube(box, mat);
 
+
     Mesh skyBox;
     skyBox.CreatCube(0.0, 0.0, 0.0, 0.5);
+
     Material skyBoxmat;
-    Texture skyBoxTex;
+    TextureCUBE *skyBoxTex = new TextureCUBE;
 
-    skyBoxTex.LoadTexture("Texture/mob.jpg");
-    skyBoxmat.SetTexture(boxt);
+    std::vector<std::string> TexPaths;
+    TexPaths.push_back("Texture/skybox/front.jpg");
+    TexPaths.push_back("Texture/skybox/back.jpg");
+
+    TexPaths.push_back("Texture/skybox/top.jpg");
+    TexPaths.push_back("Texture/skybox/bottom.jpg");
+
+    TexPaths.push_back("Texture/skybox/left.jpg");
+    TexPaths.push_back("Texture/skybox/right.jpg");
+
+    skyBoxTex->LoadTexture(TexPaths);
     skyBoxmat.SetShader(new SkyBoxShader);
+    skyBoxmat.SetTexture(skyBoxTex);
     Object skyBoxModel(skyBox, skyBoxmat);
-
     //¼ÓÔØÄ£ÐÍ
 
     glm::vec3 Up(0, 1, 0);
@@ -218,7 +229,7 @@ int main()
         r->SetModelMatrix(ModelMat);
         r->DrawModel(Keqing, Type);
 
-        r->SetModelMatrix(glm::translate(glm::mat4(0.1f), glm::vec3(0, 0, 0)));
+        r->SetModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(3, 3, 3)));
         r->DrawObject(skyBoxModel, Type);
 
         /*ModelMat = RodriguesRotationFormula(glm::vec3(2, 0, 0), glm::vec3(0, 1, 0), 180) * glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0));
