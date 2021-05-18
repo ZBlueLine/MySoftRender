@@ -3,4 +3,13 @@
 Debug/
 Release/
 .vs/MySoftRender/
+neptune/
+x64/
+*.suo
+*.sdf
+*.opensdf  
+*.vcxproj.user
+MySoftRender.vcxproj*
+MySoftRender.vcxproj
+.vs/MySoftRender/
 x64/
