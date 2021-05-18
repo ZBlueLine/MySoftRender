@@ -8,11 +8,11 @@
 
 
 class Texture {
-private:
+protected:
 	int Width, Height;
 	int channels = 4;
-public:
 	unsigned char* data;
+public:
 	Texture(int wid = 0, int hei = 0)
 	{
 		data = nullptr;
@@ -30,6 +30,12 @@ public:
 	{
 		if(data)
 			delete[] data;
+	}
+	bool isempty()
+	{
+		if (data)
+			return false;
+		return true;
 	}
 
 	void LoadTexture(const std::string &Path) 

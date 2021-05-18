@@ -28,7 +28,7 @@ class vertexAnimationShader : public Shader
 	virtual glm::vec4 FragmentShader(const VtoR& v)
 	{
 		glm::vec4 Col;
-		if (Tex->data)
+		if (!Tex->isempty())
 			Col = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
 		return Col;
 	}

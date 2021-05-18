@@ -3,6 +3,7 @@
 #define __SHADER__
 #include "global.h"
 #include "Texture.h"
+#include "CubMap.h"
 #include "Camera.h"
 
 class Shader {
@@ -84,7 +85,7 @@ public:
 	virtual glm::vec4 FragmentShader(const VtoR& v)
 	{
 		glm::vec4 return_color = { 0, 0, 0, 0 };
-		if (Tex->data)
+		if (!Tex->isempty())
 			return_color = Tex->GetColor(glm::vec2(v.texcoord.x, v.texcoord.y));
 		else
 			return_color = v.color;
