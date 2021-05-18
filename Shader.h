@@ -15,8 +15,10 @@ protected:
 	glm::mat4 PerspectiveMatrix = glm::mat4(1.0f);
 	glm::mat3 NormalMatrix = glm::mat3(1.0f);
 public:
+	bool BackCull;
 	Shader()
 	{
+		BackCull = true;
 		Tex = new Texture;
 	}
 	~Shader()

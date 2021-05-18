@@ -11,6 +11,7 @@ public:
 	Mesh mesh;
 	Material material;
 
+
 	Object() = default;
 	~Object() = default;
 	Object(const Object& obj) {

@@ -11,6 +11,7 @@ class Texture {
 protected:
 	int Width, Height;
 	int channels = 4;
+private:
 	unsigned char* data;
 public:
 	Texture(int wid = 0, int hei = 0)
@@ -26,26 +27,26 @@ public:
 		Width = other.Width;
 		Height = other.Height;
 	}
-	~Texture()
+	virtual ~Texture()
 	{
 		if(data)
 			delete[] data;
 	}
-	bool isempty()
+	virtual bool isempty()
 	{
 		if (data)
 			return false;
 		return true;
 	}
 
-	void LoadTexture(const std::string &Path) 
+	virtual void LoadTexture(const std::string &Path)
 	{
 		if (data)
 			delete[] data;
 		data = stbi_load(Path.c_str(), &Width, &Height, &channels, 0);
 	}
 
-	glm::vec4 GetColor(const glm::vec2 tex)
+	virtual glm::vec4 GetColor(const glm::vec2 tex)
 	{
 		//超出部分直接从头开始取
 		float fx = tex.x - (float)floor(tex.x);

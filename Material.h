@@ -4,7 +4,7 @@
 #define __MATERIAL__
 
 #include "Shader.h"
-#include "Texture.h"
+#include "TextureCUBE.h"
 #include "global.h"
 
 class Material {

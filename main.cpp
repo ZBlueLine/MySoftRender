@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Camera.h"
 #include "Shader.h"
+#include "SkyBoxShader.h"
 #include "Material.h"
 #include "Model.h"
 #include "global.h"
@@ -134,6 +135,16 @@ int main()
     mat.SetTexture(boxt);
     Object Cube(box, mat);
 
+    Mesh skyBox;
+    skyBox.CreatCube(0.0, 0.0, 0.0, 0.5);
+    Material skyBoxmat;
+    Texture skyBoxTex;
+
+    skyBoxTex.LoadTexture("Texture/mob.jpg");
+    skyBoxmat.SetTexture(boxt);
+    skyBoxmat.SetShader(new SkyBoxShader);
+    Object skyBoxModel(skyBox, skyBoxmat);
+
     //¼ÓÔØÄ£ÐÍ
 
     glm::vec3 Up(0, 1, 0);
@@ -195,19 +206,20 @@ int main()
     {
         processInput(window);
         r->SeteyePoint(cam->GetPosition());
-        r->SetViewMatrix(GetViewMatrix(cam->GetPosition(), cam->GetFront(), cam->GetUp()));
+        glm::mat4 viewMat = GetViewMatrix(cam->GetPosition(), cam->GetFront(), cam->GetUp());
+        r->SetViewMatrix(viewMat);
         r->ClearBuffer(glm::vec4(0.1, 0.35, 0.5, 1.0));
 
         r->SetModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, -2, 0)));
         r->DrawObject(Cube, Type);
-        
-        glm::mat4 ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(2, -2, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01));
-        //r->SetModelMatrix(ModelMat);
-        //r->DrawModel(model, Type);
 
+        glm::mat4 ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(2, -2, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.01, 0.01, 0.01));
         ModelMat = glm::translate(glm::mat4(1.0f), glm::vec3(0, -1, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.1, 0.1, 0.1));
         r->SetModelMatrix(ModelMat);
         r->DrawModel(Keqing, Type);
+
+        r->SetModelMatrix(glm::translate(glm::mat4(0.1f), glm::vec3(0, 0, 0)));
+        r->DrawObject(skyBoxModel, Type);
 
         /*ModelMat = RodriguesRotationFormula(glm::vec3(2, 0, 0), glm::vec3(0, 1, 0), 180) * glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0));
         r->SetModelMatrix(ModelMat);

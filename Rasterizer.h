@@ -47,7 +47,7 @@ public:
 	
 	bool InsidePlane(const glm::vec4& plane, const glm::vec4& Point)
 	{
-		if (plane.x * Point.x + plane.y * Point.y + plane.z * Point.z + plane.w * Point.w > 0)
+		if (plane.x * Point.x + plane.y * Point.y + plane.z * Point.z + plane.w * Point.w >= 0)
 			return true;
 		return false;
 	}
@@ -284,7 +284,8 @@ public:
 			PerspectiveDivision(p1);
 			PerspectiveDivision(p2);
 			PerspectiveDivision(p3);
-			if (!BackFaceculling(p1, p2, p3))
+			bool isFrontFace = BackFaceculling(p1, p2, p3);
+			if (shader->BackCull&&!isFrontFace||!shader->BackCull &&isFrontFace)
 				return;
 
 			p1.windowp = ViewPortMatrix * p1.windowp;
@@ -382,7 +383,6 @@ private:
 			New.color /= New.Z;
 			New.normal /= New.Z;
 			New.texcoord /= New.Z;
-
 			if (New.windowp.z < Buf->GetDepth(New.windowp.x, New.windowp.y))
 			{
 				Buf->WriteDepth(New.windowp.x, New.windowp.y, New.windowp.z);
